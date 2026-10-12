@@ -270,8 +270,8 @@ section#matchDetailsPage,#matchDetailsPage{background:transparent}
 </section>
 <section id="adminPage" class="hidden">
  <div class="section-head"><div><h2>🔐 Admin Panel</h2><div class="sub">Payment verification requests</div></div></div>
- <div class="panel"><h3>Admin Demo Login</h3><p class="muted">Demo PIN enter karo. Default PIN: <b>2468</b>. Yeh sirf front-end demo hai, secure admin authentication nahi.</p>
- <div class="formrow"><label for="adminPin">Admin PIN</label><input id="adminPin" type="password" inputmode="numeric" maxlength="12" placeholder="Enter demo PIN"></div>
+ <div class="panel"><h3>Admin Demo Login</h3>
+ <div class="formrow"><label for="adminPin">Admin PIN</label><input id="adminPin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Enter 4-digit PIN"></div>
  <button class="btn" style="width:100%" onclick="unlockAdmin()">Open Verification Requests</button><div id="adminLoginStatus" class="notice hidden" role="status"></div></div>
  <div id="adminContent" class="hidden"><div class="panel" style="margin-top:12px"><h3>Pending Payment Requests</h3><p class="muted">Payment ko apne bank/UPI app mein verify karo. Sirf UTR dekhkar approve mat karo.</p><div id="adminPaymentList"></div><div class="panel" style="margin-top:14px"><h3>Payment History — All Statuses</h3><p class="muted">Pending requests aur wallet balance safe rahenge.</p><button class="btn secondary" type="button" onclick="clearAdminHistory('payments')">🗑️ Clear Processed Payment History</button><div id="adminPaymentHistory"></div></div></div><div class="panel" style="margin-top:14px"><h3>💸 Redeem Requests</h3><p class="muted">Player ka naam, email, UPI ID aur amount check karo. Approve ka matlab sirf demo status update hai—UPI payout manually karna hoga.</p><div id="adminRedeemList"></div><div class="panel" style="margin-top:14px"><h3>Redeem History — All Statuses</h3><p class="muted">Pending redeem requests safe rahengi.</p><button class="btn secondary" type="button" onclick="clearAdminHistory('redeems')">🗑️ Clear Processed Redeem History</button><div id="adminRedeemHistory"></div></div></div><div class="panel" style="margin-top:14px"><h3>🎮 Tournament Player History</h3><p class="muted">Joined/active matches ko delete nahi kiya jayega, taaki registration aur slots safe rahen.</p><button class="btn secondary" type="button" onclick="clearAdminHistory('logs')">🗑️ Clear Transaction Log History</button><div id="adminTournamentTimes"></div><div id="adminRoomPanel" class="panel" style="margin-top:14px"><h3>🔑 Room ID &amp; Password</h3><p class="muted">Match select karo, start time set karo, Room ID/password bharo aur publish karo. Joined players ko details match se 5 minute pehle dikhengi. Demo version: details isi browser/device par save hoti hain.</p><div class="formrow"><label for="roomMatchSelect">Tournament</label><select id="roomMatchSelect"></select></div><div class="formrow"><label for="roomStartAt">Exact match start date &amp; time</label><input id="roomStartAt" type="datetime-local" required></div><div class="formrow"><label for="roomIdInput">Room ID</label><input id="roomIdInput" maxlength="40" placeholder="Room ID" required></div><div class="formrow"><label for="roomPassInput">Room Password</label><input id="roomPassInput" maxlength="40" placeholder="Room password" required></div><button class="btn" type="button" onclick="publishRoomDetails()" style="width:100%">Publish Room Details</button><div id="roomAdminStatus" class="notice hidden" role="status" style="margin-top:10px"></div><div id="roomAdminList" style="margin-top:12px"></div></div><div id="adminTournamentHistory"></div></div></div>
 </section>
@@ -304,7 +304,14 @@ section#matchDetailsPage,#matchDetailsPage{background:transparent}
 </div>
 
 <nav id="bottomNav" class="bottom hidden"><button class="nav" data-page="offers" onclick="showPage('offers')"><span class="ico">％</span>Offers</button><button class="nav" data-page="rank" onclick="showPage('rank')"><span class="ico">▥</span>Rank</button><button class="nav active home-nav" data-page="home" onclick="showPage('home')"><span class="ico">⌂</span>Home</button><button class="nav" data-page="wallet" onclick="showPage('wallet')"><span class="ico">▣</span>Wallet</button><button class="nav" data-page="profile" onclick="showPage('profile')"><span class="ico">♙</span>Profile</button></nav>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+// Supabase project configuration (publishable key is intended for browser use).
+const RUSHNOVA_SUPABASE_URL = 'https://vpgbftgphjpxwqmntmks.supabase.co';
+const RUSHNOVA_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_brj0k-Omwskv1cbXwTltvw_4kEEUPoz';
+window.rushnovaSupabase = (window.supabase && window.supabase.createClient)
+  ? window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY)
+  : null;
 const tournaments=[
 {id:1,name:'Solo 1v1 • Match 1',mode:'Solo',date:'Today • 7:00 PM',entry:20,prize:'₹35',slots:2,filled:0,map:'Bermuda',format:'1v1 Custom'},
 {id:2,name:'Solo 1v1 • Match 2',mode:'Solo',date:'Today • 8:00 PM',entry:20,prize:'₹35',slots:2,filled:0,map:'Bermuda',format:'1v1 Custom'},
@@ -625,7 +632,7 @@ document.getElementById('paymentRequestForm').addEventListener('submit',function
  alert('Request save ho gayi. Coins abhi add nahi hue. Admin ko payment verify karna hoga.');
 });
 function openAdminPanel(){showPage('admin');document.getElementById('adminContent').classList.add('hidden');document.getElementById('adminLoginStatus').classList.add('hidden');document.getElementById('adminPin').value='';}
-function unlockAdmin(){const status=document.getElementById('adminLoginStatus');status.classList.remove('hidden');if(document.getElementById('adminPin').value!=='2468'){status.textContent='PIN galat hai. Demo PIN check karo.';return;}status.textContent='Admin demo panel open ho gaya.';document.getElementById('adminContent').classList.remove('hidden');renderAdminPayments();renderAdminRedeems();renderAdminTournaments();}
+function unlockAdmin(){const status=document.getElementById('adminLoginStatus');status.classList.remove('hidden');if(document.getElementById('adminPin').value!=='2773'){status.textContent='PIN galat hai. Demo PIN check karo.';return;}status.textContent='Admin demo panel open ho gaya.';document.getElementById('adminContent').classList.remove('hidden');renderAdminPayments();renderAdminRedeems();renderAdminTournaments();}
 function clearAdminHistory(kind){
  let message='',removed=0;
  if(kind==='payments'){
@@ -674,6 +681,7 @@ function saveName(){saveProfileDetails()}
 let authMode='login';
 const RUSHNOVA_ACCOUNTS_KEY='rushnova_demo_accounts_v2';
 const RUSHNOVA_SESSION_KEY='rushnova_demo_session_v1';
+const RUSHNOVA_LOGOUT_MARKER='rushnova_explicit_logout_v1';
 function toggleAuthPasswordVisibility(){
  const input=document.getElementById('authPassword');
  const button=document.getElementById('toggleAuthPassword');
@@ -702,6 +710,7 @@ async function rushnovaPasswordHash(password){
 }
 function rushnovaIsLoggedIn(){
  try{
+  if(localStorage.getItem(RUSHNOVA_LOGOUT_MARKER)==='1') return false;
   const session=localStorage.getItem(RUSHNOVA_SESSION_KEY);
   if(session && session.trim()) return true;
   // Recover session if Chrome loses the dedicated session key but the saved profile remains.
@@ -714,7 +723,7 @@ function rushnovaIsLoggedIn(){
   return false;
  }catch(e){return false}
 }
-function rushnovaSetLoggedIn(email){localStorage.setItem(RUSHNOVA_SESSION_KEY,email);}
+function rushnovaSetLoggedIn(email){localStorage.removeItem(RUSHNOVA_LOGOUT_MARKER);localStorage.setItem(RUSHNOVA_SESSION_KEY,email);}
 function rushnovaUpdateAuthUI(){
  const loggedIn=rushnovaIsLoggedIn();
  document.getElementById('bottomNav').classList.toggle('hidden',!loggedIn);
@@ -725,7 +734,7 @@ function rushnovaUpdateAuthUI(){
  authButton.classList.toggle('hidden',loggedIn);
  authButton.setAttribute('aria-label','Login or sign up');
 }
-function rushnovaLogout(){try{localStorage.removeItem(RUSHNOVA_SESSION_KEY)}catch(e){};showPage('auth');setAuthMode('login');rushnovaUpdateAuthUI();}
+function rushnovaLogout(){try{localStorage.setItem(RUSHNOVA_LOGOUT_MARKER,'1');localStorage.removeItem(RUSHNOVA_SESSION_KEY)}catch(e){};showPage('auth');setAuthMode('login');rushnovaUpdateAuthUI();}
 
 document.getElementById('authForm').addEventListener('submit',async function(e){
  e.preventDefault();
@@ -779,8 +788,8 @@ setAuthMode('login');
 rushnovaUpdateAuthUI();
 // Keep login active across refreshes. Only the explicit Log Out button clears the session; recover from saved profile if key is missing.
 let activeEmail=(()=>{try{return localStorage.getItem(RUSHNOVA_SESSION_KEY)}catch(e){return null}})();
-if(!activeEmail){
-  // Recover a previous local session from the saved profile if the session key was lost.
+if(!activeEmail && (()=>{try{return localStorage.getItem(RUSHNOVA_LOGOUT_MARKER)!=='1'}catch(e){return false}})()){
+  // Recover a previous local session from the saved profile if the session key was lost, unless user explicitly logged out.
   const savedState=readSavedJSON(RUSHNOVA_STATE_KEY,null);
   if(savedState&&typeof savedState.email==='string'&&savedState.email.trim()){
     activeEmail=savedState.email.trim().toLowerCase();
