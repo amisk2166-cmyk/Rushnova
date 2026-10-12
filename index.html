@@ -310,7 +310,14 @@ section#matchDetailsPage,#matchDetailsPage{background:transparent}
 const RUSHNOVA_SUPABASE_URL = 'https://vpgbftgphjpxwqmntmks.supabase.co';
 const RUSHNOVA_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_brj0k-Omwskv1cbXwTltvw_4kEEUPoz';
 window.rushnovaSupabase = (window.supabase && window.supabase.createClient)
-  ? window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY)
+  ? window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY, {
+      auth: {
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true,
+        storage: window.localStorage
+      }
+    })
   : null;
 const tournaments=[
 {id:1,name:'Solo 1v1 • Match 1',mode:'Solo',date:'Today • 7:00 PM',entry:20,prize:'₹35',slots:2,filled:0,map:'Bermuda',format:'1v1 Custom'},
@@ -790,17 +797,20 @@ document.querySelectorAll('#tournaments .filters .pill').forEach(b=>b.setAttribu
 updateJoinModeFields('Solo');
 setAuthMode('login');
 rushnovaUpdateAuthUI();
-// Restore the real Supabase Auth session on refresh. The local email key is only used by existing UI guards.
+// Restore Supabase's persisted session before deciding whether to show the login screen.
 (async function initializeRushnovaAuth(){
+ const client=window.rushnovaSupabase;
+ if(!client || !client.auth){
+  console.error('Rushnova: Supabase client did not load. Check internet/CDN and project config.');
+  showPage('auth');
+  return;
+ }
  try{
-  const client=window.rushnovaSupabase;
-  let session=null;
   const explicitlyLoggedOut=(()=>{try{return localStorage.getItem(RUSHNOVA_LOGOUT_MARKER)==='1'}catch(e){return false}})();
-  if(client && client.auth && !explicitlyLoggedOut){
-   const {data,error}=await client.auth.getSession();
-   if(!error && data && data.session) session=data.session;
-   else if(error) console.warn('Could not restore Supabase session:',error.message);
-  }
+  if(explicitlyLoggedOut){ showPage('auth'); return; }
+  const {data,error}=await client.auth.getSession();
+  if(error) throw error;
+  const session=data && data.session;
   if(session && session.user){
    const user=session.user,meta=user.user_metadata||{};
    state.email=String(user.email||'').toLowerCase();
@@ -812,8 +822,8 @@ rushnovaUpdateAuthUI();
    showPage('auth');
   }
  }catch(err){
-  console.warn('Rushnova auth initialization failed:',err);
-  try{localStorage.removeItem(RUSHNOVA_SESSION_KEY)}catch(e){}
+  console.error('Rushnova session restore failed:',err);
+  // Do not erase the stored UI state on a temporary network/session-check error.
   showPage('auth');
  }
 })();
