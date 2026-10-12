@@ -167,7 +167,7 @@ section#matchDetailsPage,#matchDetailsPage{background:transparent}
    <button class="btn" id="authSubmit" type="submit" style="width:100%">Login</button>
    <div id="authMessage" class="auth-message muted" role="status" aria-live="polite"></div>
   </form>
-  <div class="auth-note"><b>Demo notice:</b> Ye abhi isi browser/device par chalne wala demo login hai, real backend authentication nahi. Real users ke liye Firebase Authentication connect karna zaroori hai. Apna asli ya reused password is demo mein mat daalna.</div>
+  <div class="auth-note">Login aur Signup Supabase Authentication ke through honge. Apna account email aur password safe rakho. Apna asli ya reused password is demo mein mat daalna.</div>
   
  </div>
 </section>
@@ -712,15 +712,7 @@ function rushnovaIsLoggedIn(){
  try{
   if(localStorage.getItem(RUSHNOVA_LOGOUT_MARKER)==='1') return false;
   const session=localStorage.getItem(RUSHNOVA_SESSION_KEY);
-  if(session && session.trim()) return true;
-  // Recover session if Chrome loses the dedicated session key but the saved profile remains.
-  const saved=readSavedJSON(RUSHNOVA_STATE_KEY,null);
-  const email=saved&&typeof saved.email==='string'?saved.email.trim().toLowerCase():'';
-  if(email){
-   localStorage.setItem(RUSHNOVA_SESSION_KEY,email);
-   return true;
-  }
-  return false;
+  return !!(session && session.trim());
  }catch(e){return false}
 }
 function rushnovaSetLoggedIn(email){localStorage.removeItem(RUSHNOVA_LOGOUT_MARKER);localStorage.setItem(RUSHNOVA_SESSION_KEY,email);}
@@ -734,7 +726,11 @@ function rushnovaUpdateAuthUI(){
  authButton.classList.toggle('hidden',loggedIn);
  authButton.setAttribute('aria-label','Login or sign up');
 }
-function rushnovaLogout(){try{localStorage.setItem(RUSHNOVA_LOGOUT_MARKER,'1');localStorage.removeItem(RUSHNOVA_SESSION_KEY)}catch(e){};showPage('auth');setAuthMode('login');rushnovaUpdateAuthUI();}
+async function rushnovaLogout(){
+ try{if(window.rushnovaSupabase) await window.rushnovaSupabase.auth.signOut();}catch(err){console.warn('Supabase sign-out issue:',err)}
+ try{localStorage.setItem(RUSHNOVA_LOGOUT_MARKER,'1');localStorage.removeItem(RUSHNOVA_SESSION_KEY);}catch(e){}
+ showPage('auth');setAuthMode('login');rushnovaUpdateAuthUI();
+}
 
 document.getElementById('authForm').addEventListener('submit',async function(e){
  e.preventDefault();
@@ -743,32 +739,40 @@ document.getElementById('authForm').addEventListener('submit',async function(e){
  const name=document.getElementById('authName').value.trim();
  const msg=document.getElementById('authMessage');
  const showAuthMessage=(text,type)=>{msg.textContent=text;msg.className='auth-message show '+type;};
- const submit=document.getElementById('authSubmit');submit.disabled=true;submit.textContent='Please wait…';
+ const submit=document.getElementById('authSubmit');
+ submit.disabled=true;submit.textContent='Please wait…';
  try{
-  let accounts=readSavedJSON(RUSHNOVA_ACCOUNTS_KEY,[]);if(!Array.isArray(accounts))accounts=[];
-  const found=accounts.find(a=>a.email===email);
-  const passwordHash=await rushnovaPasswordHash(password);
+  const client=window.rushnovaSupabase;
+  if(!client || !client.auth) throw new Error('Supabase load nahi hua. Internet check karke page refresh karo.');
   if(authMode==='signup'){
-   if(name.length<2){showAuthMessage('Signup nahi hua: Player name kam se kam 2 characters ka hona chahiye.','error');return;}
-   if(found){showAuthMessage('Is email ka account pehle se hai. Login karo ya doosra email use karo.','error');return;}
-   const newAccount={email,passwordHash,name,createdAt:new Date().toISOString(),profile:{playerName:name,email}};
-   accounts.push(newAccount);
-   localStorage.setItem(RUSHNOVA_ACCOUNTS_KEY,JSON.stringify(accounts));
-   const savedAccounts=readSavedJSON(RUSHNOVA_ACCOUNTS_KEY,[]);
-   if(!Array.isArray(savedAccounts)||!savedAccounts.some(a=>a.email===email)){throw new Error('Signup data browser mein save verify nahi hua. Storage space/settings check karke dobara try karo.');}
-   state.name=name;state.email=email;state.profile={...(state.profile||{}),name,email,accountCreatedAt:newAccount.createdAt};save();
-   const savedState=readSavedJSON(RUSHNOVA_STATE_KEY,null);
-   if(!savedState||savedState.email!==email){throw new Error('Account save hua, lekin profile save verify nahi hua. Browser storage check karo.');}
-   rushnovaSetLoggedIn(email);rushnovaUpdateAuthUI();
+   if(name.length<2){showAuthMessage('Player name kam se kam 2 characters ka hona chahiye.','error');return;}
+   const {data,error}=await client.auth.signUp({email,password,options:{data:{name,player_name:name}}});
+   if(error) throw error;
+   if(!data || !data.user) throw new Error('Signup complete nahi hua. Dobara try karo.');
+   if(!data.session){
+    showAuthMessage('Signup request ho gayi. Email confirmation on hai—apne email ka verification link kholo, phir Login karo.','success');
+    return;
+   }
+   state.name=name;state.email=email;state.profile={...(state.profile||{}),name,email,accountCreatedAt:data.user.created_at||new Date().toISOString()};
+   save();rushnovaSetLoggedIn(email);rushnovaUpdateAuthUI();
    showAuthMessage('Signup successful! Rushnova mein welcome!','success');
-   setTimeout(()=>showPage('home'),350);
-   return;
+   setTimeout(()=>showPage('home'),350);return;
   }
-  if(!found||found.passwordHash!==passwordHash){showAuthMessage('Email ya password galat hai. Details check karo ya pehle Signup karo.','error');return;}
-  state.name=found.name||'Player';state.email=found.email||email;state.profile={...(state.profile||{}),name:state.name,email:state.email,accountCreatedAt:found.createdAt||null};save();rushnovaSetLoggedIn(email);rushnovaUpdateAuthUI();
+  const {data,error}=await client.auth.signInWithPassword({email,password});
+  if(error) throw error;
+  if(!data || !data.session || !data.user) throw new Error('Login session nahi mili. Email/password check karke dobara try karo.');
+  const meta=data.user.user_metadata||{};
+  const playerName=String(meta.name||meta.player_name||state.name||'Player').trim()||'Player';
+  state.name=playerName;state.email=String(data.user.email||email).toLowerCase();
+  state.profile={...(state.profile||{}),name:state.name,email:state.email,accountCreatedAt:data.user.created_at||null};
+  save();rushnovaSetLoggedIn(state.email);rushnovaUpdateAuthUI();
   showAuthMessage('Login successful!','success');setTimeout(()=>showPage('home'),250);
- }catch(err){showAuthMessage(err&&err.message?err.message:'Signup/Login complete nahi hua. Browser storage settings check karo.','error');}
- finally{submit.disabled=false;submit.textContent=authMode==='signup'?'Create Account':'Login';}
+ }catch(err){
+  const message=err&&err.message?err.message:'Login/Signup complete nahi hua. Dobara try karo.';
+  showAuthMessage(message,'error');
+ }finally{
+  submit.disabled=false;submit.textContent=authMode==='signup'?'Create Account':'Login';
+ }
 });
 
 function referAndEarn(){
@@ -786,23 +790,32 @@ document.querySelectorAll('#tournaments .filters .pill').forEach(b=>b.setAttribu
 updateJoinModeFields('Solo');
 setAuthMode('login');
 rushnovaUpdateAuthUI();
-// Keep login active across refreshes. Only the explicit Log Out button clears the session; recover from saved profile if key is missing.
-let activeEmail=(()=>{try{return localStorage.getItem(RUSHNOVA_SESSION_KEY)}catch(e){return null}})();
-if(!activeEmail && (()=>{try{return localStorage.getItem(RUSHNOVA_LOGOUT_MARKER)!=='1'}catch(e){return false}})()){
-  // Recover a previous local session from the saved profile if the session key was lost, unless user explicitly logged out.
-  const savedState=readSavedJSON(RUSHNOVA_STATE_KEY,null);
-  if(savedState&&typeof savedState.email==='string'&&savedState.email.trim()){
-    activeEmail=savedState.email.trim().toLowerCase();
-    try{localStorage.setItem(RUSHNOVA_SESSION_KEY,activeEmail)}catch(e){}
+// Restore the real Supabase Auth session on refresh. The local email key is only used by existing UI guards.
+(async function initializeRushnovaAuth(){
+ try{
+  const client=window.rushnovaSupabase;
+  let session=null;
+  const explicitlyLoggedOut=(()=>{try{return localStorage.getItem(RUSHNOVA_LOGOUT_MARKER)==='1'}catch(e){return false}})();
+  if(client && client.auth && !explicitlyLoggedOut){
+   const {data,error}=await client.auth.getSession();
+   if(!error && data && data.session) session=data.session;
+   else if(error) console.warn('Could not restore Supabase session:',error.message);
   }
-}
-if(activeEmail){
-  const accounts=readSavedJSON(RUSHNOVA_ACCOUNTS_KEY,[]);
-  const account=Array.isArray(accounts)?accounts.find(a=>String(a.email||'').toLowerCase()===String(activeEmail).toLowerCase()):null;
-  state.email=String(activeEmail).toLowerCase();
-  if(account){state.name=account.name||state.name||'Player';state.profile={...(state.profile||{}),name:state.name,email:state.email,accountCreatedAt:account.createdAt||null};}
-  else {state.name=state.name||'Player';state.profile={...(state.profile||{}),name:state.name,email:state.email};}
-  save();showPage('home');
-}else{showPage('auth')}
+  if(session && session.user){
+   const user=session.user,meta=user.user_metadata||{};
+   state.email=String(user.email||'').toLowerCase();
+   state.name=String(meta.name||meta.player_name||state.name||'Player').trim()||'Player';
+   state.profile={...(state.profile||{}),name:state.name,email:state.email,accountCreatedAt:user.created_at||null};
+   rushnovaSetLoggedIn(state.email);save();showPage('home');
+  }else{
+   try{localStorage.removeItem(RUSHNOVA_SESSION_KEY)}catch(e){}
+   showPage('auth');
+  }
+ }catch(err){
+  console.warn('Rushnova auth initialization failed:',err);
+  try{localStorage.removeItem(RUSHNOVA_SESSION_KEY)}catch(e){}
+  showPage('auth');
+ }
+})();
 </script>
 </body></html>
