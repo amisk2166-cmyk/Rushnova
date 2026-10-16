@@ -280,11 +280,11 @@ section#matchDetailsPage,#matchDetailsPage{background:transparent}
  </div>
  <div id="adminContent" class="hidden">
   <div class="panel"><h3>Admin Session</h3><p id="adminSignedInAs" class="muted"></p><button class="btn secondary" onclick="realAdminLogout()">Admin Logout</button></div>
-  <div class="panel" style="margin-top:12px"><h3>Database Connection</h3><p class="muted">Ye panel Supabase Auth se admin verify karta hai. Player/tournament/results/payment records ko live database se manage karne ke liye neeche wali SQL tables aur RLS policies apply karni hongi; local demo data ko real payments samajhkar approve na karein.</p><div id="adminDbStatus" class="notice">Checking Supabase connection…</div></div>
-  <div class="panel" style="margin-top:12px"><h3>Players / Users</h3><div id="realAdminPlayers" class="muted">Database table setup ke baad load honge.</div></div>
-  <div class="panel" style="margin-top:12px"><h3>Tournaments</h3><div id="realAdminTournaments" class="muted">Database table setup ke baad load honge.</div></div>
-  <div class="panel" style="margin-top:12px"><h3>Results</h3><div id="realAdminResults" class="muted">Database table setup ke baad load honge.</div></div>
-  <div class="panel" style="margin-top:12px"><h3>Payments / Redeems</h3><div id="realAdminPayments" class="muted">Database table setup ke baad load honge.</div></div>
+  <div class="panel" style="margin-top:12px"><h3>Database Connection</h3><p class="muted">Admin-only database tools. Payments status update karne se wallet coins automatically add/deduct nahi hote; actual money/coin transfer alag secure backend se karna hoga.</p><div id="adminDbStatus" class="notice">Checking Supabase connection…</div><button type="button" class="btn secondary" style="margin-top:8px" onclick="loadRealAdminData()">↻ Refresh all data</button></div>
+  <div class="panel" style="margin-top:12px"><h3>👥 Players / Users</h3><p class="muted">Registered profile records (read-only).</p><div id="realAdminPlayers" class="muted">Loading…</div></div>
+  <div class="panel" style="margin-top:12px"><h3>🎮 Tournaments</h3><form id="adminTournamentForm"><div class="formrow"><label>Tournament title</label><input id="adminTournamentTitle" required maxlength="100" placeholder="Solo Match 1"></div><div class="formrow"><label>Mode</label><select id="adminTournamentMode"><option>Solo</option><option>Duo</option><option>Squad</option></select></div><div class="formrow"><label>Entry fee (₹)</label><input id="adminTournamentFee" type="number" min="0" max="100000" value="20" required></div><div class="formrow"><label>Prize (text)</label><input id="adminTournamentPrize" maxlength="50" placeholder="₹35"></div><div class="formrow"><label>Status</label><select id="adminTournamentStatus"><option value="upcoming">upcoming</option><option value="open">open</option><option value="full">full</option><option value="completed">completed</option><option value="cancelled">cancelled</option></select></div><button class="btn" type="submit">＋ Add tournament</button></form><div id="realAdminTournaments" style="margin-top:12px">Loading…</div></div>
+  <div class="panel" style="margin-top:12px"><h3>🏆 Results</h3><form id="adminResultForm"><div class="formrow"><label>Tournament ID (optional)</label><input id="adminResultTournament" type="number" min="1" placeholder="Tournament ID"></div><div class="formrow"><label>Player email</label><input id="adminResultEmail" type="email" placeholder="player@example.com"></div><div class="formrow"><label>Placement</label><input id="adminResultPlacement" type="number" min="1" placeholder="1"></div><div class="formrow"><label>Reward (₹/coins)</label><input id="adminResultReward" type="number" min="0" value="0" required></div><button class="btn" type="submit">＋ Add result</button></form><div id="realAdminResults" style="margin-top:12px">Loading…</div></div>
+  <div class="panel" style="margin-top:12px"><h3>💳 Payments / Redeems</h3><p class="muted">Pending requests ko verify karke status update kar sakte ho. Status update is not proof of bank/UPI transfer and does not move wallet coins.</p><div id="realAdminPayments">Loading…</div></div>
  </div>
 </section>
 <section id="profilePage" class="hidden">
@@ -322,7 +322,7 @@ section#matchDetailsPage,#matchDetailsPage{background:transparent}
 const RUSHNOVA_SUPABASE_URL = 'https://vpgbftgphjpxwqmntmks.supabase.co';
 const RUSHNOVA_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_brj0k-Omwskv1cbXwTltvw_4kEEUPoz';
 window.rushnovaSupabase = (window.supabase && window.supabase.createClient)
-  ? window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY)
+  ? window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } })
   : null;
 const tournaments=[
 {id:1,name:'Solo 1v1 • Match 1',mode:'Solo',date:'Today • 7:00 PM',entry:20,prize:'₹35',slots:2,filled:0,map:'Bermuda',format:'1v1 Custom'},
@@ -662,22 +662,39 @@ function showRealAdmin(user){
  document.getElementById('adminSignedInAs').textContent='Signed in as '+user.email;
  loadRealAdminData();
 }
-async function loadRealAdminData(){
- const status=document.getElementById('adminDbStatus');
- const db=window.rushnovaSupabase;
- if(!db){status.textContent='Supabase SDK load nahi hua. Internet aur project URL/key check karein.';return;}
- const {data:{session}}=await db.auth.getSession();
- if(!session||String(session.user.email||'').toLowerCase()!==RUSHNOVA_ADMIN_EMAIL){status.textContent='Admin session verify nahi hui. Dobara sign in karein.';document.getElementById('adminContent').classList.add('hidden');document.getElementById('realAdminLogin').classList.remove('hidden');return;}
- const tables=[['profiles','realAdminPlayers'],['tournaments','realAdminTournaments'],['results','realAdminResults'],['payments','realAdminPayments']];
- let ok=0;
- for(const [table,elementId] of tables){
-  const box=document.getElementById(elementId);
-  const {data,error}=await db.from(table).select('*').limit(100);
-  if(error){box.textContent=table+' table/RLS setup pending: '+error.message;continue;}
-  ok++;box.textContent=data.length?JSON.stringify(data,null,2):'Abhi koi record nahi hai.';
- }
- status.textContent=ok===tables.length?'Supabase database connected. Records live database se read ho rahe hain.':'Supabase Auth connected; database tables/policies setup incomplete ('+ok+'/'+tables.length+' tables ready).';
+function adminEsc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function adminRows(data, columns, actions=''){
+ if(!data||!data.length)return '<p class="muted">Abhi koi record nahi hai.</p>';
+ return data.map(row=>'<div class="notice" style="margin-top:8px;overflow-wrap:anywhere">'+columns.map(k=>'<div><b>'+adminEsc(k.replace(/_/g,' '))+':</b> '+adminEsc(row[k]===null?'—':row[k])+'</div>').join('')+actions.replace(/__ID__/g,String(Number(row.id)||0)).replace(/__STATUS__/g,adminEsc(row.status||''))+'</div>').join('');
 }
+async function loadRealAdminData(){
+ const status=document.getElementById('adminDbStatus'),db=window.rushnovaSupabase;
+ if(!db){status.textContent='Supabase SDK load nahi hua. Internet / project URL/key check karein.';return;}
+ const {data:{session},error:sessionError}=await db.auth.getSession();
+ if(sessionError||!session||String(session.user.email||'').toLowerCase()!==RUSHNOVA_ADMIN_EMAIL){status.textContent='Admin session nahi mili. Dobara sign in karein.';document.getElementById('adminContent').classList.add('hidden');document.getElementById('realAdminLogin').classList.remove('hidden');return;}
+ const jobs=[
+  ['profiles','realAdminPlayers',['email','player_name','created_at']],
+  ['tournaments','realAdminTournaments',['id','title','mode','entry_fee','prize','status','created_at']],
+  ['results','realAdminResults',['id','tournament_id','player_email','placement','reward','created_at']],
+  ['payments','realAdminPayments',['id','user_email','amount','utr','kind','status','created_at']]
+ ];
+ let ok=0;
+ for(const [table,elementId,cols] of jobs){
+  const box=document.getElementById(elementId);const {data,error}=await db.from(table).select('*').order('created_at',{ascending:false}).limit(100);
+  if(error){box.innerHTML='<p class="muted">'+adminEsc(table)+' error: '+adminEsc(error.message)+'</p>';continue;} ok++;
+  if(table==='tournaments') box.innerHTML=adminRows(data,cols,`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn secondary" type="button" onclick="adminChangeTournamentStatus(__ID__,'completed')">Mark completed</button><button class="btn secondary" type="button" onclick="adminDeleteRow('tournaments',__ID__)">Delete</button></div>`);
+  else if(table==='results') box.innerHTML=adminRows(data,cols,`<button class="btn secondary" style="margin-top:8px" type="button" onclick="adminDeleteRow('results',__ID__)">Delete result</button>`);
+  else if(table==='payments') box.innerHTML=adminRows(data,cols,`<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn" type="button" onclick="adminPaymentStatus(__ID__,'approved')">Mark approved</button><button class="btn secondary" type="button" onclick="adminPaymentStatus(__ID__,'rejected')">Reject</button></div>`);
+  else box.innerHTML=adminRows(data,cols);
+ }
+ status.textContent=ok===4?'Connected: all 4 tables read successfully.':'Database connected partially: '+ok+'/4 tables ready. Check table names and RLS policies.';
+}
+async function adminDbAction(work){const status=document.getElementById('adminDbStatus');try{const db=window.rushnovaSupabase;const {data:{session}}=await db.auth.getSession();if(!session||String(session.user.email||'').toLowerCase()!==RUSHNOVA_ADMIN_EMAIL)throw new Error('Admin login required.');await work(db);await loadRealAdminData();status.textContent='Change saved successfully.';}catch(e){status.textContent='Action failed: '+(e.message||e);}}
+document.getElementById('adminTournamentForm').addEventListener('submit',function(e){e.preventDefault();const title=document.getElementById('adminTournamentTitle').value.trim(),mode=document.getElementById('adminTournamentMode').value,entry_fee=Number(document.getElementById('adminTournamentFee').value),prize=document.getElementById('adminTournamentPrize').value.trim(),status=document.getElementById('adminTournamentStatus').value;if(!title||!Number.isFinite(entry_fee)||entry_fee<0)return;adminDbAction(async db=>{const {error}=await db.from('tournaments').insert({title,mode,entry_fee,prize,status});if(error)throw error;document.getElementById('adminTournamentForm').reset();document.getElementById('adminTournamentFee').value='20';});});
+document.getElementById('adminResultForm').addEventListener('submit',function(e){e.preventDefault();const tid=document.getElementById('adminResultTournament').value,player_email=document.getElementById('adminResultEmail').value.trim(),placementValue=document.getElementById('adminResultPlacement').value,reward=Number(document.getElementById('adminResultReward').value);const row={player_email:player_email||null,placement:placementValue?Number(placementValue):null,reward};if(tid)row.tournament_id=Number(tid);if(!Number.isFinite(reward)||reward<0)return;adminDbAction(async db=>{const {error}=await db.from('results').insert(row);if(error)throw error;document.getElementById('adminResultForm').reset();document.getElementById('adminResultReward').value='0';});});
+function adminChangeTournamentStatus(id,status){if(!id)return;adminDbAction(async db=>{const {error}=await db.from('tournaments').update({status}).eq('id',id);if(error)throw error;});}
+function adminPaymentStatus(id,status){if(!id)return;if(!confirm('Payment request ka status '+status+' karna hai? Isse actual UPI/bank transfer ya wallet coin transfer nahi hota.'))return;adminDbAction(async db=>{const {error}=await db.from('payments').update({status}).eq('id',id);if(error)throw error;});}
+function adminDeleteRow(table,id){if(!['tournaments','results'].includes(table)||!id)return;if(!confirm('Is '+table+' record ko permanently delete karna hai?'))return;adminDbAction(async db=>{const {error}=await db.from(table).delete().eq('id',id);if(error)throw error;});}
 document.getElementById('realAdminForm').addEventListener('submit',async function(e){
  e.preventDefault();
  const status=document.getElementById('adminLoginStatus');status.classList.remove('hidden');
