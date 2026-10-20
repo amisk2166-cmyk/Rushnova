@@ -40,7 +40,7 @@
 <button class="match-category" onclick="openMatchCategory('Squad')"><span class="category-art squad-art">⚔️</span><span class="category-info"><strong>Squad</strong><small>3 vs 3 / 4 vs 4 · ₹50 / ₹80 Entry</small><span class="category-cta">VIEW MATCHES →</span></span></button>
 </div>
 </section>
-<section class="screen" id="matches"><div class="section-head"><h2>🎮 Tournaments</h2><span class="muted">20 matches · Solo / Duo / Squad</span></div><div class="tabs" id="matchTabs"><button class="tab active" data-filter="All">All Matches</button><button class="tab" data-filter="Solo">Solo</button><button class="tab" data-filter="Duo">Duo</button><button class="tab" data-filter="Squad">Squad</button></div><div id="allTournaments"></div></section>
+<section class="screen" id="matches"><div id="joinStatus" class="status" role="status" aria-live="polite"></div><div class="section-head"><h2>🎮 Tournaments</h2><span class="muted">20 matches · Solo / Duo / Squad</span></div><div class="tabs" id="matchTabs"><button class="tab active" data-filter="All">All Matches</button><button class="tab" data-filter="Solo">Solo</button><button class="tab" data-filter="Duo">Duo</button><button class="tab" data-filter="Squad">Squad</button></div><div id="allTournaments"></div></section>
 <section class="screen" id="rank"><div class="hero"><div class="eyebrow">SEASON LEADERBOARD</div><h1>🏆 Top Players</h1><div class="muted">The best players in the Rushnova arena.</div></div><div class="card" style="background:#8f0d2a;color:#fff;text-align:center"><div style="font-size:25px">🥇　🥈　🥉</div><h2>TOP 3 PLAYERS</h2><div class="muted" style="color:#f4dbe2">Keep playing to climb the ranks.</div></div><div id="rankingList"></div></section>
 <section class="screen" id="wallet">
 <div class="wallet-account"><div class="wallet-account-head"><span>▣ ACCOUNT STATS</span><span id="walletPlayer">PLAYER</span></div><div class="wallet-balance"><span class="wallet-coin-icon">🪙</span><strong><span id="walletCoins">0</span></strong><span>COINS</span></div><div class="wallet-main-actions"><button class="wallet-add" onclick="openScreen('wallet');setTimeout(()=>document.getElementById('allPacks').scrollIntoView({behavior:'smooth',block:'start'}),80)">＋ ADD COINS</button><button class="wallet-redeem" onclick="openScreen('redeem')">🎁 REDEEM</button></div></div>
@@ -99,7 +99,7 @@ const TOURS=[{id:1,title:'Solo 1v1 • Match 1',mode:'Solo',entry:20,prize:35,sl
 {id:20,title:'Squad 4v4 • Match 5',mode:'Squad',entry:80,prize:150,slots:'0/8',time:'Today · 8:00 PM',tag:'SQUAD 4v4',map:'Bermuda',format:'4v4 Custom',capacity:8}];let selectedPack=PACKS[0],matchFilter='All',authMode='login',currentUser=null;
 const $=id=>document.getElementById(id);function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function packHTML(p){return `<div class="pack"><div class="pack-top"><div class="coin-icon">🪙</div><div><strong>${p.coins} Coins</strong><span class="tiny">${p.label}</span></div></div><div class="price"><b>₹${p.price}</b><button class="btn" onclick="choosePack(${p.coins})">BUY</button></div></div>`}
-function tourHTML(t){return `<article class="tourney"><div class="tour-img"><span class="tour-tag">${t.tag}</span><h3>⚔ ${t.title}</h3><div style="font-size:10px;opacity:.85">${t.mode.toUpperCase()} · ${t.format} · ${t.time}</div></div><div class="tour-body"><div class="tour-metrics"><div><small>Prize Pool</small><b>₹${t.prize}</b></div><div><small>Entry Fee</small><b>🪙 ${t.entry}</b></div><div><small>Slots</small><b>${t.slots}</b></div></div><div class="tour-foot"><span class="badge">● ${t.map} · Open</span><button class="btn" onclick="joinTour(${t.id})">JOIN NOW</button></div></div></article>`}
+function tourHTML(t){return `<article class="tourney"><div class="tour-img"><span class="tour-tag">${t.tag}</span><h3>⚔ ${t.title}</h3><div style="font-size:10px;opacity:.85">${t.mode.toUpperCase()} · ${t.format} · ${t.time}</div></div><div class="tour-body"><div class="tour-metrics"><div><small>Prize Pool</small><b>₹${t.prize}</b></div><div><small>Entry Fee</small><b>🪙 ${t.entry}</b></div><div><small>Slots</small><b data-slots-id="${t.id}">${t.slots}</b></div></div><div class="tour-foot"><span class="badge">● ${t.map} · Open</span><button class="btn" data-join-id="${t.id}" onclick="joinTour(${t.id})">JOIN NOW</button></div></div></article>`}
 function render(){ const hp=$('homePacks'); if(hp) hp.innerHTML=PACKS.slice(0,2).map(packHTML).join(''); const ap=$('allPacks'); if(ap) ap.innerHTML=PACKS.map(packHTML).join(''); const ht=$('homeTournaments'); if(ht) ht.innerHTML=TOURS.slice(0,2).map(tourHTML).join(''); const at=$('allTournaments'); if(at) at.innerHTML=TOURS.filter(t=>matchFilter==='All'||t.mode===matchFilter).map(tourHTML).join(''); const rl=$('rankingList'); if(rl) rl.innerHTML=[['R','rushhunter',9800],['A','Avi_Gamer',8650],['J','JOKERx',7200],['M','MortalRush',6500],['S','ShadowPlay',5400],['N','NovaOP',4900]].map((p,i)=>`<div class="player-row"><span class="rank">#${i+1}</span><div class="avatar">${p[0]}</div><div class="player-name">${p[1]}</div><div class="points">🪙 ${p[2].toLocaleString()}</div></div>`).join('');}
 function openScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));window.scrollTo({top:0,behavior:'smooth'});}
 function openMatchCategory(category){matchFilter=category;document.querySelectorAll('#matchTabs .tab').forEach(b=>b.classList.toggle('active',b.dataset.filter===category));render();openScreen('matches');}
@@ -108,7 +108,29 @@ function choosePack(coins){selectedPack=PACKS.find(p=>p.coins===coins)||PACKS[0]
 function showStatus(id,msg,type='info'){const e=$(id);e.textContent=msg;e.className='status show '+type}
 $('utrForm').onsubmit=e=>{e.preventDefault();showStatus('paymentStatus','Payment request is not submitted because the secure database/payment backend has not been configured. Configure Supabase and merchant UPI first.','err')};
 function redeemCode(){showStatus('redeemStatus','Redeeming requires a real logged-in account, server-side balance, and authorized code inventory. Backend is not configured yet.','err')}
-function joinTour(id){const t=TOURS.find(x=>x.id===id);if(!t)return;showStatus('authStatus',`Selected: ${t.title} · Entry ${t.entry} coins. Real registration and coin deduction require the secure backend; no coins were deducted.`, 'info');openScreen('profile')}
+async function joinTour(id){
+ const t=TOURS.find(x=>x.id===id); if(!t)return;
+ openScreen('matches');
+ if(!window.rushnovaSupabase){showStatus('joinStatus','Supabase connect nahi hua. Page reload karke dobara try karo.','err');return;}
+ const {data:{user},error:authErr}=await window.rushnovaSupabase.auth.getUser();
+ currentUser=user||null;
+ if(authErr||!user){showStatus('joinStatus','Match join karne ke liye pehle Profile tab se login karo. Login ke baad Matches par wapas aakar Join dabao.','err');return;}
+ const uid=prompt('Apni Free Fire UID enter karo (sirf numbers):');
+ if(uid===null)return;
+ if(!/^\d{5,20}$/.test(uid.trim())){showStatus('joinStatus','Free Fire UID 5 se 20 digits ki honi chahiye.','err');return;}
+ showStatus('joinStatus',`Joining ${t.title}… Please wait.`,'info');
+ try{
+   const {data,error}=await window.rushnovaSupabase.rpc('join_rushnova_tournament',{p_tournament_id:id,p_free_fire_uid:uid.trim()});
+   if(error)throw error;
+   const result=Array.isArray(data)?data[0]:data;
+   showStatus('joinStatus',result?.message||`${t.title} mein registration successful!`, 'ok');
+   await loadPlayerProfile();
+   await refreshTournamentRegistrations();
+ }catch(err){showStatus('joinStatus',err.message||'Join nahi ho paya. SQL setup check karke dobara try karo.','err');}
+}
+async function refreshTournamentRegistrations(){
+ try{const {data,error}=await window.rushnovaSupabase.rpc('get_rushnova_tournament_counts');if(error)throw error;const counts={};(data||[]).forEach(r=>counts[r.tournament_id]=Number(r.registration_count||0));TOURS.forEach(t=>{const el=document.querySelector(`[data-slots-id="${t.id}"]`);if(el)el.textContent=`${counts[t.id]||0}/${t.capacity}`;});}catch(e){console.warn('Could not refresh tournament slots',e.message);}
+}
 function setAuthMode(mode){authMode=mode;$('nameField').style.display=mode==='signup'?'block':'none';$('authSubmit').textContent=mode==='signup'?'CREATE ACCOUNT':'LOG IN';$('loginMode').classList.toggle('active',mode==='login');$('signupMode').classList.toggle('active',mode==='signup')}
 async function loadPlayerProfile(){
  const sb=window.rushnovaSupabase;
@@ -119,6 +141,7 @@ async function loadPlayerProfile(){
    $('authPanel').style.display='block';
    $('walletPlayer').textContent='PLAYER';
    $('walletCoins').textContent='0';
+   $('headCoins').textContent='0';
    $('redeemableWinnings').textContent='0';
    redeemableWinningBalance=0;
    return;
@@ -140,6 +163,7 @@ async function loadPlayerProfile(){
  redeemableWinningBalance=Number(profile.winning_coins||0);
  $('walletPlayer').textContent=String(name).slice(0,24).toUpperCase();
  $('walletCoins').textContent=coins.toLocaleString('en-IN');
+ $('headCoins').textContent=coins.toLocaleString('en-IN');
  $('redeemableWinnings').textContent=redeemableWinningBalance.toLocaleString('en-IN');
  $('profileSummary').innerHTML='<div style="font-weight:800;margin-bottom:6px">'+safe(name)+'</div><div class="muted">'+safe(user.email||'')+'</div><div style="margin-top:10px">Wallet: <b>'+coins.toLocaleString('en-IN')+'</b> coins · Winnings: <b>'+redeemableWinningBalance.toLocaleString('en-IN')+'</b> coins</div><button class="btn" style="margin-top:12px" type="button" onclick="rushnovaLogout()">LOG OUT</button>';
  $('authPanel').style.display='none';
@@ -211,5 +235,5 @@ $('redeemUtrForm').onsubmit=async e=>{
 
 window.rushnovaSupabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(()=>loadPlayerProfile(),0)});
 render();
-loadPlayerProfile();
+loadPlayerProfile().then(()=>refreshTournamentRegistrations());
 </script></body></html>
