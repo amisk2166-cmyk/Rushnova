@@ -8,7 +8,7 @@
 .wallet-account-head{display:flex;align-items:center;justify-content:space-between;font-weight:800;letter-spacing:1.3px;font-size:10px}
 .wallet-balance{display:flex;align-items:center;gap:10px;margin:12px 0 14px}.wallet-balance strong{font-size:28px;line-height:1}.wallet-balance>span:last-child{font-size:12px;font-weight:700}.wallet-coin-icon{width:36px;height:36px;border-radius:50%;background:#ffcf3b;display:grid;place-items:center;font-size:22px;border:2px solid #ffe59a}
 .wallet-main-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.wallet-main-actions button{border-radius:10px;padding:11px 8px;font-size:13px;font-weight:850;min-height:42px}.wallet-add{background:#20ac6b;color:white;box-shadow:0 3px 0 #13814d}.wallet-redeem{background:#ffbf2f;color:#211707;box-shadow:0 3px 0 #d99b0b}
-.wallet-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.wallet-stats>div{background:#fff;border:1px solid #e2e3e9;border-radius:12px;padding:12px 4px;text-align:center;min-height:68px;display:flex;flex-direction:column;justify-content:center;gap:5px}.wallet-stats b{font-size:18px}.wallet-stats span{font-size:10px;color:#777b87}
+
 
 /* Home-page social links and gaming banner */
 .home-announcement{display:flex;align-items:center;gap:10px;padding:13px 14px;margin:0 0 14px;background:#fff2f2;border:1px solid #f4c6cc;border-radius:14px;color:#8f0d2a;font-weight:750;font-size:13px}
@@ -16,7 +16,7 @@
 .rush-banner{height:150px;border-radius:17px;margin:0 0 15px;overflow:hidden;position:relative;display:flex;align-items:center;padding:17px;color:#fff;background:radial-gradient(circle at 80% 15%,#ff3446 0,transparent 30%),linear-gradient(115deg,#140b11 0%,#4a0718 48%,#c50d2d 100%);box-shadow:0 7px 18px #8f0d2a26;border:1px solid #e5a8b4}
 .rush-banner:before{content:'⚔';position:absolute;right:12px;top:-18px;font-size:140px;line-height:1;opacity:.17;transform:rotate(-12deg)}
 .rush-banner:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 28px,#ffffff08 29px 31px);pointer-events:none}
-.rush-banner-copy{position:relative;z-index:1;max-width:85%}.rush-banner .crown{font-size:20px;color:#ff233d}.rush-banner .welcome{font-size:clamp(19px,5vw,27px);font-weight:1000;font-style:italic;line-height:1.05;letter-spacing:1px;text-shadow:2px 2px #2b0009}.rush-banner .welcome strong{display:block;font-size:clamp(27px,7vw,39px);color:#ff273f;letter-spacing:2px}.home-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 16px}.home-shortcut{background:transparent;text-decoration:none;color:#30323b;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;font-weight:750;font-size:12px}.shortcut-icon{width:64px;height:64px;border-radius:18px;background:#d91e28;color:#fff;display:grid;place-items:center;font-size:28px;box-shadow:0 5px 12px #a40f3026;transition:transform .15s}.home-shortcut:active .shortcut-icon{transform:scale(.96)}
+.rush-banner-copy{position:relative;z-index:1;max-width:85%}.rush-banner .crown{font-size:20px;color:#ff233d}.rush-banner .welcome{font-size:clamp(19px,5vw,27px);font-weight:1000;font-style:italic;line-height:1.05;letter-spacing:1px;text-shadow:2px 2px #2b0009}.rush-banner .welcome strong{display:block;font-size:clamp(27px,7vw,39px);color:#ff273f;letter-spacing:2px}.home-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 16px}.home-shortcut{background:transparent;text-decoration:none;color:#30323b;display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;font-weight:750;font-size:12px}.shortcut-icon{width:64px;height:64px;border-radius:18px;background:#d91e28;color:#fff;display:grid;place-items:center;font-size:28px;box-shadow:0 5px 12px #a40f3026;transition:transform .15s}.home-shortcut:active .shortcut-icon{transform:scale(.96)}
 @media(min-width:430px){.rush-banner{height:174px}.shortcut-icon{width:72px;height:72px}}
 
 
@@ -41,13 +41,177 @@
 /* Profile-only additions */
 .profile-menu{display:grid;gap:9px;margin-top:14px}.profile-menu button{display:flex;align-items:center;gap:10px;text-align:left;width:100%;padding:13px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-weight:800}.profile-menu .pm-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#fff0f3;color:var(--red);font-size:17px;flex-shrink:0}.profile-menu .pm-copy{flex:1}.profile-menu small{display:block;color:var(--muted);font-size:11px;font-weight:500;margin-top:2px}.profile-panel{display:none;margin-top:12px}.profile-panel.open{display:block}.profile-back{margin-bottom:10px}.profile-detail-mode .profile-menu{display:none}.profile-detail-mode .profile-menu-title{display:none}.profile-detail-mode .profile-panel:not(.open){display:none}.tx-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #f0f0f4}.tx-row:last-child{border-bottom:0}.tx-symbol{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:900}.tx-plus{background:#e6f9ef;color:#13864f}.tx-minus{background:#fff0f0;color:#b51c36}.tx-info{flex:1;min-width:0}.tx-info b{display:block;overflow-wrap:anywhere}.tx-info small{color:var(--muted);font-size:10px}.tx-value{font-weight:900;white-space:nowrap}.legal-copy{font-size:12px;line-height:1.65;color:#454854}.legal-copy h3{margin:12px 0 5px}.profile-panel .field{margin-bottom:8px}
 
+
+/* Rushnova Diwali premium polish: festive gold accents, richer cards, subtle glow */
+:root{--gold:#ffc947;--festival:#ffda75}
+.top{box-shadow:0 5px 18px #3a10200b}
+.logo{background:linear-gradient(145deg,#b70e34,#74091f);border:1px solid #ffd36a;box-shadow:0 0 0 3px #ffc94720,0 5px 14px #a40f3033}
+.coin-pill{background:linear-gradient(135deg,#fff8df,#ffedb8);border-color:#f0ce71;color:#7b1630;box-shadow:inset 0 1px #fff}
+.rush-banner{background:radial-gradient(circle at 84% 18%,#ffdc7a88 0,transparent 23%),radial-gradient(circle at 72% 90%,#d9921d55 0,transparent 34%),linear-gradient(115deg,#100b16 0%,#4c1025 47%,#a50d2f 78%,#5a1024 100%);border:1px solid #e5b44b;box-shadow:0 9px 24px #6d112b26,inset 0 1px #ffe7a655}
+.rush-banner:before{content:'✦  दीपावली  ✦';right:8px;top:auto;bottom:10px;font-size:13px;letter-spacing:2px;font-weight:900;opacity:.9;color:#ffdc7b;transform:none;text-shadow:0 0 12px #ffca48}
+.rush-banner:after{background:repeating-linear-gradient(135deg,transparent 0 28px,#ffd77712 28px 30px)}
+.crown{color:#ffdc7b;text-shadow:0 0 12px #ffc94730}
+.hero{background:radial-gradient(circle at 92% 0,#ffda753d,transparent 32%),linear-gradient(120deg,#fff3d8,#f8dce2);border:1px solid #f0d28b;box-shadow:0 6px 18px #9e65200b}
+.card,.tourney,.pack{box-shadow:0 5px 16px #24132108}
+.btn:not(.outline):not(.light):not(.green){background:linear-gradient(135deg,#b40e32,#7f0b29);border:1px solid #d89b45}
+.btn.yellow{background:linear-gradient(135deg,#ffe18a,#ffbc32);border:1px solid #e4a821}
+.match-category{box-shadow:0 5px 16px #3411210a;border-color:#ead6b2}
+.home-announcement{background:linear-gradient(110deg,#fff7df,#fff0f3);border-color:#efd18b;color:#7b1630}
+.profile-menu button{box-shadow:0 4px 13px #21142107}
+/* Small festive sign below the home announcement */
+.diwali-ribbon{display:flex;align-items:center;gap:9px;padding:10px 12px;margin:-3px 0 13px;border-radius:12px;color:#ffe8a6;background:linear-gradient(105deg,#23101d,#6e102b 55%,#35101f);border:1px solid #d9a94d;box-shadow:0 5px 15px #6e102b18;font-size:11px;font-weight:850;letter-spacing:.25px}
+.diwali-ribbon .diya{font-size:22px;filter:drop-shadow(0 0 5px #ffb52c)}
+.diwali-ribbon small{display:block;color:#f6d9e0;font-size:9px;font-weight:600;letter-spacing:.2px}
+@media(prefers-reduced-motion:no-preference){.diwali-ribbon .diya{animation:diyaGlow 2.2s ease-in-out infinite alternate}@keyframes diyaGlow{from{filter:drop-shadow(0 0 2px #ffb52c)}to{filter:drop-shadow(0 0 9px #ffb52c)}}}
+
+
+/* Rushnova Premium Diwali v2 — refined mobile polish, preserving existing functionality */
+:root{--red:#94102f;--red2:#c61b43;--ink:#20212a;--muted:#777b87;--bg:#f6f5f8;--line:#e7dfd1;--gold:#f7c64b;--festival:#ffe7a1}
+body{background:radial-gradient(ellipse at 50% -8%,#fff4d9 0,transparent 34%),#f6f5f8}
+.app{background:linear-gradient(180deg,#fffdf8 0,#f7f6fa 180px,#f7f6fa 100%)}
+.top{background:rgba(255,253,248,.97);backdrop-filter:blur(12px);border-bottom:1px solid #ecd9a4}
+.brand{letter-spacing:-.25px}.brand small{letter-spacing:2.1px}
+.coin-pill{background:linear-gradient(135deg,#fff9e7,#ffedb0);border:1px solid #e8c65f;box-shadow:0 3px 10px #9b6d1512}
+.rush-banner{min-height:158px;border-radius:20px;background:radial-gradient(circle at 85% 20%,#ffdb7b44,transparent 24%),linear-gradient(118deg,#171018 0%,#4c1026 44%,#9b1235 78%,#c17a28 140%);border:1px solid #d6ad53;box-shadow:0 12px 28px #68172b1c,inset 0 1px #fff4c344}
+.rush-banner:before{content:'✦  FESTIVE SEASON  ✦';color:#ffe5a0;text-shadow:0 0 16px #ffc94766;letter-spacing:2px;font-size:10px;right:15px;bottom:13px;top:auto;font-weight:900}
+.rush-banner:after{opacity:.75}
+.crown{color:#ffdf87}.welcome{letter-spacing:-.6px}.welcome strong{color:#ffda72;text-shadow:0 3px 18px #ffbd2633}
+.home-announcement{border:1px solid #ead18c;box-shadow:0 4px 12px #9c6c1710}
+.section-head{margin-top:20px}.section-head h2{letter-spacing:-.35px}
+.match-category{border:1px solid #e8d7b2;box-shadow:0 8px 22px #2413210a;border-radius:20px;overflow:hidden}
+.category-art{position:relative}.category-art:after{content:'✦';position:absolute;right:10px;top:7px;color:#ffe5a1;font-size:18px;opacity:.45}
+.category-cta{background:linear-gradient(135deg,#fff5d6,#fff);border:1px solid #e8cc76;color:#78152c;box-shadow:0 3px 8px #7d18200a}
+.stats{background:radial-gradient(circle at 100% 0,#f3b43a55,transparent 36%),linear-gradient(120deg,#21131d,#6f102b 68%,#a94a22);border:1px solid #d6ad53;box-shadow:0 10px 24px #6c14251c}
+.balance{color:#ffe18b;text-shadow:0 2px 12px #ffc94722}
+.card,.pack,.tourney{border-color:#e8dfcf;box-shadow:0 6px 18px #2b18200a}
+.pack{transition:transform .15s ease,box-shadow .15s ease}.pack:active{transform:scale(.985)}
+.btn{transition:transform .12s ease,filter .12s ease}.btn:active{transform:translateY(1px) scale(.99);filter:brightness(.97)}
+.btn:not(.outline):not(.light):not(.green){background:linear-gradient(135deg,#a70f32,#790b27);border:1px solid #d7a64a;box-shadow:0 5px 12px #86112a1c}
+.btn.yellow{background:linear-gradient(135deg,#ffe69b,#ffc438);color:#38230b;border:1px solid #d9a72c}
+.tab.active{background:linear-gradient(135deg,#a70f32,#790b27);border-color:#d7a64a;box-shadow:0 3px 8px #86112a18}
+.tour-img{background:radial-gradient(circle at 95% 0,#ffcf6740,transparent 27%),linear-gradient(115deg,#171018,#581329 55%,#b61c42);border-bottom:1px solid #d8a74c}
+.tour-tag{background:linear-gradient(135deg,#ffe78d,#f7bb2c);box-shadow:0 2px 6px #140b0b18}
+.tour-banner-metrics>div{background:#fffdf21a;border-color:#ffe9b33d}
+.profile-menu button{border-color:#e8dfd1;box-shadow:0 5px 14px #24132107;transition:border-color .15s ease,transform .15s ease}.profile-menu button:active{transform:scale(.99);border-color:#dfbf62}
+.profile-menu .pm-icon{background:linear-gradient(135deg,#fff4d9,#ffedf1);border:1px solid #f0dfbd}
+.bottom-nav{background:rgba(255,253,249,.98);backdrop-filter:blur(12px);border-top:1px solid #e8d9b2;box-shadow:0 -5px 18px #2a18200a}
+.nav.active{color:#8f102f}.nav.active .ico{background:linear-gradient(135deg,#fff2d1,#ffe9ef)}
+.notice{border:1px solid #f0dfb4}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+
+/* Responsive sizing polish: consistent spacing and larger, thumb-friendly back controls */
+:root{--space-xs:6px;--space-sm:10px;--space-md:14px;--space-lg:18px}
+.screen{padding:clamp(12px,3.5vw,18px)}
+.section-head{gap:12px;min-height:44px;margin:18px 1px 12px;flex-wrap:wrap}
+.section-head h2{font-size:clamp(16px,4.2vw,20px);line-height:1.25}
+.link{min-height:44px;min-width:84px;padding:10px 14px;border-radius:11px;background:#fff0f3;border:1px solid #f1c9d2;color:var(--red);font-size:14px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:6px;flex-shrink:0;touch-action:manipulation}
+.section-head .link{margin-left:-2px}
+.btn,.slot-btn,.tab,.nav,.home-shortcut,.match-category{touch-action:manipulation}
+.btn{min-height:44px;padding:12px 15px;font-size:13px;line-height:1.2}
+.btn.full{min-height:48px}
+.card{padding:clamp(12px,3.5vw,17px);border-radius:16px}
+.tour-img{padding:clamp(13px,3.5vw,18px);min-height:150px}
+.tour-img h3{font-size:clamp(16px,4.3vw,19px);line-height:1.25}
+.tour-banner-metrics{gap:clamp(5px,1.5vw,8px)}
+.tour-banner-metrics>div{padding:8px 7px}
+.tour-banner-metrics small{font-size:clamp(9px,2.4vw,11px)}
+.tour-banner-metrics b{font-size:clamp(11px,3vw,14px)}
+.tour-body{padding:clamp(12px,3.5vw,16px)}
+.tour-metrics{gap:7px}
+.tour-metrics small{font-size:11px}
+.tour-metrics b{font-size:clamp(12px,3.3vw,14px);overflow-wrap:anywhere}
+.slot-grid{gap:8px}
+.slot-btn{min-height:48px;padding:12px 4px;font-size:13px}
+.field input,.field select{min-height:46px;font-size:14px}
+.profile-back{min-height:50px;font-size:15px;margin-bottom:12px;border-radius:13px}
+@media(max-width:380px){
+ .screen{padding:11px}
+ .section-head{gap:7px}
+ .section-head .link{font-size:13px;padding:9px 11px;min-width:78px}
+ .tour-banner-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .tour-banner-metrics>div{padding:7px 5px}
+ .tour-banner-metrics small{white-space:normal;line-height:1.2}
+ .tour-metrics{gap:5px}
+ .tour-body{padding:11px}
+ .btn{padding:11px 12px}
+}
+@media(min-width:430px){
+ .screen{padding:18px}
+ .section-head{margin-top:20px;margin-bottom:14px}
+ .link{font-size:14px;min-height:46px}
+}
+
+/* Premium referral dashboard: clear live counters and mobile-first invite card */
+.referral-count-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:14px 0}
+.referral-count-card{position:relative;overflow:hidden;min-width:0;padding:15px 13px;border-radius:16px;background:linear-gradient(145deg,#250a18,#78132e 72%,#a8173c);border:1px solid #d95a78;box-shadow:0 8px 18px #720b2524;color:#fff}
+.referral-count-card:after{content:'✦';position:absolute;right:9px;top:1px;font-size:45px;color:#ffffff12;line-height:1}
+.referral-count-card.success{background:linear-gradient(145deg,#20180a,#725014 72%,#a87a19);border-color:#e2b94e}
+.referral-count-card .count-label{display:block;font-size:9px;letter-spacing:1px;font-weight:900;color:#ffdbe4;position:relative;z-index:1}
+.referral-count-card.success .count-label{color:#ffedb1}
+.referral-count-card .count-number{display:block;font-size:32px;line-height:1.12;font-weight:1000;margin:9px 0 5px;color:#fff;position:relative;z-index:1;font-variant-numeric:tabular-nums}
+.referral-count-card small{display:block;font-size:10px;line-height:1.35;color:#f8dce3;position:relative;z-index:1}
+.referral-count-card.success small{color:#ffefc4}
+.referral-reward-banner{padding:14px;border-radius:14px;background:linear-gradient(110deg,#fff1c9,#fff7e9 55%,#ffe3e9);border:1px solid #f0d18a;color:#593b12;box-shadow:0 5px 13px #7a4c0c0b}
+.referral-reward-banner b{color:#8f0d2a;font-size:17px}
+.referral-link-row input{min-width:0;flex:1;width:100%;padding:12px;border:1px solid #e7c8d0;border-radius:11px;background:#fff9fb;color:#7c102b;font-size:11px;font-weight:750}
+.referral-action-btn{white-space:nowrap;min-width:94px}
+@media(max-width:360px){.referral-count-grid{gap:7px}.referral-count-card{padding:12px 9px}.referral-count-card .count-number{font-size:27px}.referral-action-btn{min-width:76px;padding:10px 8px;font-size:11px}}
+
+
+/* Premium competitive rank system */
+.rank-hero{border-radius:20px;padding:18px;color:#fff;background:radial-gradient(circle at 92% 15%,#ffce4a35,transparent 28%),radial-gradient(circle at 5% 100%,#db285a55,transparent 38%),linear-gradient(135deg,#100d1c,#32102c 55%,#7e1231);border:1px solid #8c3153;box-shadow:0 12px 28px #42102925;margin-bottom:20px;overflow:hidden;position:relative}
+.rank-hero:after{content:'♜';position:absolute;right:13px;top:37px;font-size:92px;color:#fff;opacity:.07;line-height:1}
+.rank-hero-top,.rank-hero-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;z-index:1}.rank-season-pill{font-size:9px;font-weight:950;letter-spacing:1px;background:#ffce4a;color:#28162a;padding:6px 9px;border-radius:20px}.rank-live-pill{font-size:9px;letter-spacing:.8px;color:#baffd6;font-weight:900}.rank-live-pill i{display:inline-block;width:6px;height:6px;background:#32e98d;border-radius:50%;margin-right:4px;box-shadow:0 0 8px #32e98d}.rank-hero-title{font-size:28px;font-weight:1000;letter-spacing:-.8px;line-height:1.1;margin-top:25px;position:relative;z-index:1}.rank-hero-title em{font-style:normal;color:#ffcf49}.rank-hero p{font-size:11px;color:#e7d9e5;max-width:260px;margin:9px 0 22px;position:relative;z-index:1}.rank-hero-bottom{font-size:9px;color:#f2dbe5;border-top:1px solid #ffffff25;padding-top:11px}.rank-refresh{background:#ffffff18;border:1px solid #ffffff45;color:#fff;border-radius:20px;padding:5px 9px;font-size:9px;font-weight:900}.rank-section-title{display:flex;justify-content:space-between;align-items:end;gap:8px;margin:20px 1px 11px}.rank-section-title small{font-size:9px;letter-spacing:1.4px;color:#a40f30;font-weight:950}.rank-section-title h2{font-size:16px;margin-top:3px}.rank-season-label{font-size:9px;color:#7a7d88;background:#fff;border:1px solid #e7e8ee;border-radius:20px;padding:5px 8px;font-weight:900}.rank-podium{display:grid;grid-template-columns:1fr 1.12fr 1fr;align-items:end;gap:7px;margin-bottom:8px}.rank-podium-loading{grid-column:1/-1;text-align:center;padding:20px;background:#fff;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:12px}.podium-card{min-width:0;text-align:center;background:#fff;border:1px solid #ece4e9;border-radius:14px;padding:12px 5px 10px;position:relative;overflow:hidden}.podium-card.first{padding-top:17px;padding-bottom:16px;border-color:#f2ca59;background:linear-gradient(180deg,#fff8dc,#fff 80%);box-shadow:0 7px 18px #d9ad301b;transform:translateY(-5px)}.podium-crown{font-size:22px;line-height:1.2}.podium-avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;margin:7px auto;background:#f6e6ed;color:#9f1437;border:2px solid #eac4d1;font-weight:1000;font-size:15px}.first .podium-avatar{width:46px;height:46px;background:#ffedaa;border-color:#e9bb3b;color:#6e4510}.podium-name{font-size:10px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.podium-place{font-size:9px;color:#777b87;margin:3px 0 7px}.podium-points{font-size:11px;font-weight:1000;color:#a40f30}.podium-base{height:4px;border-radius:5px;margin-top:9px;background:#e7e8ee}.first .podium-base{background:linear-gradient(90deg,#e6a900,#ffe17a)}.rank-tier-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rank-tier{display:flex;align-items:center;gap:10px;padding:11px;border-radius:13px;border:1px solid #e8e8ee;background:#fff;min-width:0}.rank-tier>span{font-size:25px;width:32px;text-align:center}.rank-tier b{display:block;font-size:10px;letter-spacing:.7px}.rank-tier small{display:block;font-size:9px;color:#737785;margin-top:2px}.tier-master{background:linear-gradient(120deg,#fff4d2,#fff);border-color:#eac55b}.tier-diamond{background:linear-gradient(120deg,#f0eaff,#fff);border-color:#c8b4ff}.tier-platinum{background:linear-gradient(120deg,#e9f8ff,#fff);border-color:#b7dce9}.tier-gold{background:linear-gradient(120deg,#fff0d8,#fff);border-color:#f2d1a0}.tier-silver{background:linear-gradient(120deg,#f1f3f8,#fff);border-color:#d9dde7}.tier-bronze{background:linear-gradient(120deg,#f8e8df,#fff);border-color:#e4c1ae}.rank-row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #ececf1;border-radius:12px;padding:10px;margin-bottom:7px}.rank-row-me{border-color:#d8b54b;background:#fffdf3}.rank-row-number{width:30px;flex-shrink:0;text-align:center;font-size:12px;font-weight:1000;color:#777b87}.rank-row-number.top-rank{color:#a40f30}.rank-row-avatar{width:36px;height:36px;flex-shrink:0;border-radius:12px;display:grid;place-items:center;background:#f6e4ea;color:#a40f30;font-weight:1000}.rank-row-info{flex:1;min-width:0}.rank-row-name{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rank-row-tier{font-size:9px;color:#777b87;margin-top:3px}.rank-row-score{text-align:right;font-size:12px;font-weight:1000;color:#a40f30;white-space:nowrap}.rank-row-score small{display:block;font-size:8px;color:#858895;font-weight:700}.rank-footnote{font-size:10px;line-height:1.5;color:#747987;background:#f0f1f5;border-radius:10px;padding:10px;margin-top:12px}
+@media(max-width:360px){.rank-hero-title{font-size:24px}.rank-tier{padding:9px 7px;gap:6px}.rank-tier>span{font-size:21px;width:26px}.podium-name{font-size:9px}}
+
+.notify-bell{position:relative;width:36px;height:36px;border-radius:12px;background:#fff4f6;border:1px solid #f1d1d9;color:#8f102f;font-size:17px}.notify-bell span{position:absolute;right:-4px;top:-5px;min-width:16px;height:16px;padding:0 4px;border-radius:9px;background:#d91e47;color:white;font-size:9px;line-height:16px;font-weight:900}.notification-item{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid #ececf1;border-radius:12px;background:#fff;margin-bottom:8px}.notification-item.unread{border-color:#edc4cf;background:#fff9fb}.notification-icon{width:35px;height:35px;flex-shrink:0;border-radius:11px;background:#fff0f3;display:grid;place-items:center;font-size:18px}.notification-copy{flex:1;min-width:0}.notification-copy b{display:block;font-size:12px}.notification-copy p{margin:4px 0;color:#5f6370;font-size:11px;overflow-wrap:anywhere}.notification-copy small{font-size:9px;color:#8a8d98}.notification-unread-dot{width:7px;height:7px;background:#d91e47;border-radius:50%;margin-top:5px}
+
+/* Rushnova visual polish: layout and interaction only; existing color palette is untouched. */
+:root{scroll-behavior:smooth}
+button,a,input,select{ -webkit-tap-highlight-color:transparent }
+button{transition:transform .16s ease,box-shadow .16s ease,filter .16s ease}
+button:active{transform:scale(.975)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.screen.active{animation:rnScreenIn .22s ease-out}
+@keyframes rnScreenIn{from{opacity:.72;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.hero,.stats,.mini,.pack,.tourney,.notification-item,.profile-card,.match-card,.empty,.panel,.card{transition:box-shadow .18s ease,transform .18s ease}
+.pack,.mini,.tourney{box-shadow:0 2px 8px rgba(25,25,35,.035)}
+.pack:active,.mini:active{transform:translateY(-1px)}
+.section-head{gap:10px}
+.section-head>*{min-width:0}
+h1,h2,h3{overflow-wrap:anywhere;text-wrap:balance}
+.muted{line-height:1.55}
+.btn{min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.full{display:flex}
+.tab{min-height:36px;display:inline-flex;align-items:center;justify-content:center}
+input,select{min-height:42px;max-width:100%;border-radius:10px}
+img{max-width:100%}
+@media (hover:hover){
+ .btn:hover{filter:brightness(1.035);box-shadow:0 5px 13px rgba(25,25,35,.10)}
+ .pack:hover,.mini:hover,.tourney:hover{box-shadow:0 6px 18px rgba(25,25,35,.075)}
+ .tab:hover{transform:translateY(-1px)}
+}
+@media(max-width:380px){
+ .screen{padding:12px}
+ .hero{padding:16px 14px}
+ .balance{font-size:26px}
+ .mini-stats{gap:6px}
+ .mini{padding:10px 3px}
+ .tour-banner-metrics{gap:5px}
+ .tour-banner-metrics>div{padding:6px 4px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
 </style></head><body><div class="app">
-<header class="top"><div class="brand"><div class="logo">R</div><div>RUSHNOVA<small>GAMING ARENA</small></div></div><button class="coin-pill" onclick="openScreen('wallet')">🪙 <span id="headCoins">0</span> ＋</button></header>
+<header class="top"><div class="brand"><div class="logo">R</div><div>RUSHNOVA<small>GAMING ARENA</small></div></div><div style="display:flex;align-items:center;gap:7px"><button class="notify-bell" type="button" onclick="openScreen('notifications');loadRushnovaNotifications()" aria-label="Notifications">🔔<span id="notificationBadge" style="display:none">0</span></button><button class="coin-pill" onclick="openScreen('wallet')">🪙 <span id="headCoins">0</span> ＋</button></div></header>
 <main>
 <section class="screen active" id="home">
 <div class="home-announcement"><span class="announce-icon">📢</span><span>Withdrawal Complete ✅ In Just 24 Hours 📌</span><span class="chevron">›</span></div>
+<div class="diwali-ribbon"><span class="diya">🪔</span><span>DIWALI SPECIAL · RUSHNOVA FESTIVE ARENA<small>Golden rewards • Premium gaming vibes • Play responsibly</small></span><span style="margin-left:auto;color:#ffda75;font-size:18px">✦</span></div>
 <div class="rush-banner"><div class="rush-banner-copy"><div class="crown">♛ RUSHNOVA</div><div class="welcome">WELCOME TO <strong>RUSHNOVA</strong></div><div style="font-size:10px;letter-spacing:2px;font-weight:800;margin-top:5px">GAMING ARENA</div></div></div>
-<div class="home-shortcuts"><button class="home-shortcut" onclick="openScreen('wallet')"><span class="shortcut-icon">▣</span><span>Wallet</span></button><a class="home-shortcut" href="https://www.instagram.com/rushnova.ff?xtok=MTdrbHI5NnlpYzhvYg==" target="_blank" rel="noopener noreferrer"><span class="shortcut-icon">◎</span><span>Instagram</span></a><a class="home-shortcut" href="https://t.me/Rnsporttm" target="_blank" rel="noopener noreferrer"><span class="shortcut-icon">🎧</span><span>Support</span></a></div>
+<div class="home-shortcuts"><button class="home-shortcut" onclick="openScreen('wallet')"><span class="shortcut-icon">▣</span><span>Wallet</span></button><a class="home-shortcut" href="https://www.instagram.com/rushnova.ff?xtok=MTdrbHI5NnlpYzhvYg==" target="_blank" rel="noopener noreferrer"><span class="shortcut-icon">◎</span><span>Instagram</span></a><a class="home-shortcut" href="https://t.me/Rnsporttm" target="_blank" rel="noopener noreferrer"><span class="shortcut-icon">🎧</span><span>Support</span></a><a class="home-shortcut" href="https://whatsapp.com/channel/0029VbDgkUw2ER6YU8O1Hf0b" target="_blank" rel="noopener noreferrer"><span class="shortcut-icon" style="background:#e53935;font-size:27px">◉</span><span>WhatsApp</span></a></div>
 <div class="choose-match-head"><h2>🎮 Choose Your Match</h2><p>Pehle category select karo</p></div>
 <div class="match-categories">
 <button class="match-category" onclick="openMatchCategory('Solo')"><span class="category-art solo-art">🥷</span><span class="category-info"><strong>Solo</strong><small>1 vs 1 · ₹20 Entry</small><span class="category-cta">VIEW MATCHES →</span></span></button>
@@ -57,13 +221,18 @@
 </div>
 </section>
 <section class="screen" id="matches"><div id="joinStatus" class="status" role="status" aria-live="polite"></div><div class="section-head"><button class="link" type="button" onclick="openScreen('home')">← Back</button><h2>🎮 Tournaments</h2></div><div class="tabs" id="matchTabs"></div><div id="allTournaments"></div></section>
+<section class="screen" id="notifications"><div class="section-head"><h2>🔔 Notifications</h2><button class="link" onclick="loadRushnovaNotifications()">↻ Refresh</button></div><div class="notice">Match updates, room announcements and account status messages will appear here.</div><div style="display:flex;justify-content:flex-end;margin:8px 0"><button class="btn outline" type="button" onclick="markRushnovaNotificationsRead()">MARK ALL READ</button></div><div id="notificationList"><div class="empty">Login karo aur notifications dekhne ke liye refresh karo.</div></div><div id="notificationStatus" class="status" role="status" aria-live="polite"></div></section>
 <section class="screen" id="joinSetup"><div class="section-head"><h2>🎮 Confirm Match Entry</h2><button class="link" onclick="openScreen('matches')">← Back to Matches</button></div><div class="card"><div id="joinMatchTitle" style="font-weight:900;font-size:17px">Choose your match</div><div class="muted" id="joinMatchDetails"></div><div class="field"><label>Choose your slot number</label><div id="joinSlotGrid" class="slot-grid"></div><div class="muted">Grey slots are already taken. Your entry fee is deducted only after you press Confirm Entry.</div></div><div class="field"><label>Free Fire Name</label><input id="joinUid" maxlength="32" placeholder="Enter your Free Fire name"></div><button id="confirmJoinBtn" class="btn full" type="button" onclick="confirmTournamentEntry()">CONFIRM ENTRY</button><div id="joinSetupStatus" class="status" role="status" aria-live="polite"></div></div><div id="joinRoomInfo"></div></section>
 <section class="screen" id="adminRooms"><div class="section-head"><h2>🛡️ Admin · Publish Room</h2><button class="link" onclick="openScreen('profile')">← Profile</button></div><div class="notice">Only an account marked as admin in Supabase can publish room details. Room ID/password will be visible only to players registered in that match.</div><form id="adminRoomForm" class="card"><div class="field"><label>Match</label><select id="adminMatchId" required></select></div><div class="field"><label>Room ID</label><input id="adminRoomId" maxlength="80" required placeholder="Enter room ID"></div><div class="field"><label>Room Password</label><input id="adminRoomPassword" maxlength="80" required placeholder="Enter room password"></div><button class="btn full" id="adminPublishBtn" type="submit">PUBLISH ROOM DETAILS</button><div id="adminRoomStatus" class="status"></div></form></section>
 <section class="screen" id="adminPayments"><div class="section-head"><h2>💳 Admin · Manual UPI Payments</h2><button class="link" onclick="openScreen('profile')">← Profile</button></div><div class="notice">Bank/UPI app mein payment independently check karne ke baad hi approve karein. Fake screenshot/UTR par coins add na karein.</div><button class="btn full" type="button" onclick="loadAdminTopups()">REFRESH PAYMENT HISTORY</button><div id="adminTopupList" style="margin-top:12px"><div class="empty">Load pending requests.</div></div><div id="adminTopupStatus" class="status"></div></section>
-<section class="screen" id="rank"><div class="hero"><div class="eyebrow">SEASON LEADERBOARD</div><h1>🏆 Top Players</h1><div class="muted">The best players in the Rushnova arena.</div></div><div class="card" style="background:#8f0d2a;color:#fff;text-align:center"><div style="font-size:25px">🥇　🥈　🥉</div><h2>TOP 3 PLAYERS</h2><div class="muted" style="color:#f4dbe2">Keep playing to climb the ranks.</div></div><div id="rankingList"></div></section>
+<section class="screen" id="rank">
+ <div class="rank-hero"><div class="rank-hero-top"><span class="rank-season-pill">⚡ RUSHNOVA SEASON</span><span class="rank-live-pill"><i></i> LIVE BOARD</span></div><div class="rank-hero-title">RISE TO THE <em>TOP</em></div><p>Har verified result tumhari leaderboard position ko improve kar sakta hai.</p><div class="rank-hero-bottom"><span>🏆 Competitive rankings</span><span>🔄 <button type="button" onclick="loadRushnovaLeaderboard(true)" class="rank-refresh">REFRESH</button></span></div></div>
+ <div class="rank-section-title"><div><small>THE ELITE</small><h2>👑 Top 3 Champions</h2></div><span class="rank-season-label">SEASON RANK</span></div>
+ <div id="rankPodium" class="rank-podium"><div class="rank-podium-loading">Loading champions…</div></div>
+ <div class="rank-section-title"><div><small>ALL COMPETITORS</small><h2>⚔️ Live Leaderboard</h2></div><span class="rank-season-label">TOP 100</span></div><div id="rankingList"></div><div class="rank-footnote">Ranks are displayed from Rushnova’s published leaderboard. Match results and leaderboard data must be verified in Supabase; wallet balance alone does not determine rank.</div>
+ </section>
 <section class="screen" id="wallet">
 <div class="wallet-account"><div class="wallet-account-head"><span>▣ ACCOUNT STATS</span><span id="walletPlayer">PLAYER</span></div><div class="wallet-balance"><span class="wallet-coin-icon">🪙</span><strong><span id="walletCoins">0</span></strong><span>COINS</span></div><div class="wallet-main-actions"><button class="wallet-add" onclick="openScreen('wallet');setTimeout(()=>document.getElementById('allPacks').scrollIntoView({behavior:'smooth',block:'start'}),80)">＋ ADD COINS</button><button class="wallet-redeem" onclick="openScreen('redeem')">🎁 REDEEM</button></div></div>
-<div class="wallet-stats"><div><b id="walletMatches">0</b><span>MATCHES</span></div><div><b id="walletWins">0</b><span>WINS</span></div><div><b id="walletPrize">₹0</b><span>PRIZE WON</span></div></div>
 <div class="section-head"><h2>🔥 Top-up Deals</h2><span class="muted">₹1 = 1 coin</span></div><div class="packs" id="allPacks"></div>
 <div class="notice">Pay only to the configured UPI details. Submit the exact UTR/reference number. Coins are credited only after payment verification; this website does not fake payment success.</div>
 <div class="section-head"><h2>Recent top-ups</h2></div><div class="card" id="paymentHistory"><div class="empty">Log in and connect the backend to view your payment history.</div></div>
@@ -96,10 +265,10 @@
  <div id="rushnovaConnectionCheck" class="admin-warning">Checking the live Supabase database…</div><div class="admin-warning">Admin actions require profiles.is_admin=true. Payment confirmation and UPI payout must be manually verified outside this website.</div>
  <button class="btn outline full" type="button" onclick="openScreen('profile')">← Back to Profile</button>
  </section>
- <section class="screen" id="profile"><div class="section-head"><h2>👤 Player Account</h2></div><div class="ref-player-identity" aria-label="Your player profile"><div class="ref-player-top"><div class="ref-player-avatar" id="referPlayerAvatar">R</div><div class="ref-player-copy"><div class="ref-player-label">✦ PLAYER IDENTITY · RUSHNOVA</div><div class="ref-player-name" id="referPlayerName">Your Player Name</div><div class="ref-player-email" id="referPlayerEmail">Log in to show your Gmail</div><div class="ref-player-id-pill">⚡ RUSHNOVA GAMER</div></div></div><div class="profile-coin-pair"><div class="profile-coin-tile"><span>🪙 WALLET COINS</span><b id="profileWalletCoins">0</b><small>Top-up & match entry</small></div><div class="profile-coin-tile profile-winning-tile"><span>🏆 WINNING COINS</span><b id="profileWinningCoins">0</b><small>Redeemable winnings</small></div></div></div><div class="card"><div id="profileSummary"><div class="empty">Log in or create your Rushnova account.</div></div><div id="authPanel"><div class="tabs"><button class="tab active" id="loginMode" onclick="setAuthMode('login')">Log in</button><button class="tab" id="signupMode" onclick="setAuthMode('signup')">Create account</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label>Player name</label><input id="playerName" maxlength="40" placeholder="Your gaming name"></div><div class="field"><label>Email</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="field"><label>Password</label><input id="password" type="password" minlength="8" autocomplete="current-password" required placeholder="At least 8 characters"></div><button class="btn full" id="authSubmit">LOG IN</button></form><div class="status" id="authStatus"></div></div></div>
+ <section class="screen" id="profile"><div class="section-head"><h2>👤 Player Account</h2></div><div class="ref-player-identity" aria-label="Your player profile"><div class="ref-player-top"><div class="ref-player-avatar" id="referPlayerAvatar">R</div><div class="ref-player-copy"><div class="ref-player-label">✦ PLAYER IDENTITY · RUSHNOVA</div><div class="ref-player-name" id="referPlayerName">Your Player Name</div><div class="ref-player-email" id="referPlayerEmail">Log in to show your Gmail</div><div class="ref-player-id-pill">⚡ RUSHNOVA GAMER</div></div></div><div class="profile-coin-pair"><div class="profile-coin-tile"><span>🪙 WALLET COINS</span><b id="profileWalletCoins">0</b><small>Top-up & match entry</small></div><div class="profile-coin-tile profile-winning-tile"><span>🏆 WINNING COINS</span><b id="profileWinningCoins">0</b><small>Redeemable winnings</small></div></div></div><div class="card"><div id="profileSummary"><div class="empty">Log in or create your Rushnova account.</div></div><div id="authPanel"><div class="tabs"><button class="tab active" id="loginMode" onclick="setAuthMode('login')">Log in</button><button class="tab" id="signupMode" onclick="setAuthMode('signup')">Create account</button></div><form id="authForm"><div class="field" id="nameField" style="display:none"><label>Player name</label><input id="playerName" maxlength="40" placeholder="Your gaming name"></div><div class="field" id="signupReferralField" style="display:none"><label>Referral code (optional)</label><input id="signupReferralCode" maxlength="12" autocapitalize="characters" placeholder="Friend’s referral code"><small class="muted">Use your friend’s code to support them.</small></div><div class="field"><label>Email</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="field"><label>Password</label><input id="password" type="password" minlength="8" autocomplete="current-password" required placeholder="At least 8 characters"></div><button class="btn full" id="authSubmit">LOG IN</button></form><div class="status" id="authStatus"></div></div></div>
 <div id="profileOptionsCard" class="card" style="margin-top:12px;display:none"><h3 class="profile-menu-title">⚙️ Profile & Account</h3><div class="profile-menu">
 <button type="button" onclick="toggleProfilePanel('offersPanel');loadRushnovaPlayerOffers()"><span class="pm-icon">🎉</span><span class="pm-copy">Offers<small>Latest Rushnova offers and bonuses</small></span><span>›</span></button>
-<button type="button" onclick="toggleProfilePanel('referPanel')"><span class="pm-icon">🎁</span><span class="pm-copy">Refer & Earn<small>Copy your Rushnova link and invite friends</small></span><span>›</span></button>
+<button type="button" onclick="toggleProfilePanel('referPanel');loadRushnovaReferralStats()"><span class="pm-icon">🎁</span><span class="pm-copy">Refer & Earn<small>Copy your Rushnova link and invite friends</small></span><span>›</span></button>
 <button type="button" onclick="toggleProfilePanel('transactionPanel');loadCoinTransactions()"><span class="pm-icon">↕</span><span class="pm-copy">Transaction History<small>Coins credited (+) and debited (−)</small></span><span>›</span></button>
 <button type="button" onclick="toggleProfilePanel('passwordPanel')"><span class="pm-icon">🔐</span><span class="pm-copy">Change Password<small>Update your login password</small></span><span>›</span></button>
 <button type="button" onclick="toggleProfilePanel('privacyPanel')"><span class="pm-icon">🛡️</span><span class="pm-copy">Privacy Policy<small>How account data is used</small></span><span>›</span></button>
@@ -110,13 +279,13 @@
 <div class="section-head"><h3>🎁 Refer & Earn</h3></div>
 <div class="card">
 <p class="muted" style="margin-top:0">Share Rushnova with your friends and invite them to join the gaming arena.</p>
-<label for="myReferralLink" style="display:block;font-weight:800;margin:12px 0 6px">Your Rushnova link</label>
-<div style="display:flex;gap:8px;align-items:stretch"><input id="myReferralLink" readonly value="https://amisk2166-cmyk.github.io/Rushnova/" style="min-width:0;flex:1;padding:11px;border:1px solid var(--line);border-radius:10px;background:#f8f8fb;color:var(--ink);font-size:12px"><button class="btn" type="button" onclick="copyRushnovaReferralLink()">COPY LINK</button></div>
+<div class="referral-count-grid"><div class="referral-count-card"><span class="count-label">👥 TOTAL REFERRALS</span><b class="count-number" id="referralTotalCount">0</b><small>Friends who created an account with your code</small></div><div class="referral-count-card success"><span class="count-label">✓ SUCCESSFUL REFERRALS</span><b class="count-number" id="referralSuccessCount">0</b><small>Friends who completed a tournament</small></div></div><div class="referral-reward-banner"><div style="font-size:10px;font-weight:900;letter-spacing:1.1px">🎁 YOUR REWARD</div><b>₹10 / 10 wallet coins</b><div style="font-size:11px;margin-top:3px">Per eligible friend · credited after a completed tournament is verified</div></div><label for="myReferralCode" style="display:block;font-weight:800;margin:12px 0 6px">Your referral code</label><div class="referral-link-row" style="display:flex;gap:8px;align-items:stretch"><input id="myReferralCode" readonly value="Loading…" aria-label="Your referral code"><button class="btn outline referral-action-btn" type="button" onclick="copyRushnovaReferralCode()">COPY CODE</button></div><div style="font-weight:800;margin:14px 0 6px">Your referral link</div>
+<div class="referral-link-row" style="display:flex;gap:8px;align-items:stretch"><input id="myReferralLink" readonly value="https://rushnova-ff.vercel.app/" aria-label="Your referral link"><button class="btn referral-action-btn" type="button" onclick="copyRushnovaReferralLink()">COPY LINK</button></div>
 <div id="referCopyStatus" class="status"></div>
 </div>
 
 <div class="rush-banner" role="img" aria-label="Rushnova gaming invitation banner"><div class="rush-banner-copy"><div class="crown">⚡ RUSHNOVA</div><div class="welcome">INVITE FRIENDS<strong>PLAY. WIN. REPEAT.</strong></div><div style="font-size:11px;margin-top:8px;font-weight:750">Join the arena with your squad</div></div></div>
-<div class="card legal-copy"><h3>How to invite friends</h3><ol><li>Tap <b>Copy Link</b> above.</li><li>Share the link with your friends on WhatsApp, Instagram or any chat app.</li><li>Ask them to open Rushnova and create their own account.</li></ol><p class="muted">Note: this link opens Rushnova. Automatic referral tracking and reward crediting are not enabled unless a referral backend is added.</p></div>
+<div class="card legal-copy"><h3>How to invite friends</h3><ol><li>Share your referral link or code with a friend.</li><li>Your friend must enter the code while creating a new account.</li><li>When your friend joins and plays a tournament that the admin marks completed, you receive ₹10 (10 wallet coins).</li></ol><p class="muted">Only genuine new accounts count. Each friend can reward one referrer once; self-referrals and duplicate rewards are blocked.</p><button class="btn outline full" type="button" onclick="loadRushnovaReferralStats()">↻ REFRESH REFERRAL COUNTS</button><div id="referralStatsStatus" class="status"></div></div>
 </div>
 <div id="transactionPanel" class="profile-panel"><button class="btn outline full profile-back" type="button" onclick="closeProfilePanel()">← Back to Profile</button><div class="section-head"><h3>Coin Transaction History</h3><button class="link" onclick="loadCoinTransactions()">Refresh</button></div><div id="coinTransactionList" class="card"><div class="empty">Login to see transactions.</div></div><div class="muted">History is read from your Supabase wallet_transactions table. If the table or read permission is missing, entries cannot be shown.</div></div>
 <div id="passwordPanel" class="profile-panel"><button class="btn outline full profile-back" type="button" onclick="closeProfilePanel()">← Back to Profile</button><div class="card"><h3>Change Password</h3><form id="changePasswordForm"><div class="field"><label>New password</label><input id="newPassword" type="password" minlength="8" autocomplete="new-password" required placeholder="At least 8 characters"></div><div class="field"><label>Confirm new password</label><input id="confirmNewPassword" type="password" minlength="8" autocomplete="new-password" required placeholder="Re-enter new password"></div><button class="btn full" type="submit">UPDATE PASSWORD</button><div id="changePasswordStatus" class="status"></div></form></div></div>
@@ -135,39 +304,9 @@ const PACKS=[{coins:20,price:20,label:'STARTER'},{coins:40,price:40,label:'POPUL
 // Configure the official receiving UPI ID here before using manual UPI. Do not put Razorpay Secret here.
 const RUSHNOVA_MERCHANT_UPI = 'amishhj@slc';
 const RUSHNOVA_MERCHANT_NAME = 'Rushnova';
-const TOURS=[{id:1,title:'Solo 1v1 • Match 1',mode:'Solo',entry:20,prize:35,slots:'0/2',time:'Today · 7:00 PM',tag:'SOLO 1v1',map:'Bermuda',format:'1v1 Custom',capacity:2},
-{id:2,title:'Solo 1v1 • Match 2',mode:'Solo',entry:20,prize:35,slots:'0/2',time:'Today · 8:00 PM',tag:'SOLO 1v1',map:'Bermuda',format:'1v1 Custom',capacity:2},
-{id:3,title:'Solo 1v1 • Match 3',mode:'Solo',entry:20,prize:35,slots:'0/2',time:'Today · 7:00 PM',tag:'SOLO 1v1',map:'Bermuda',format:'1v1 Custom',capacity:2},
-{id:4,title:'Solo 1v1 • Match 4',mode:'Solo',entry:20,prize:35,slots:'0/2',time:'Today · 8:00 PM',tag:'SOLO 1v1',map:'Bermuda',format:'1v1 Custom',capacity:2},
-{id:5,title:'Solo 1v1 • Match 5',mode:'Solo',entry:20,prize:35,slots:'0/2',time:'Today · 7:00 PM',tag:'SOLO 1v1',map:'Bermuda',format:'1v1 Custom',capacity:2},
-{id:6,title:'Duo 2v2 • Match 1',mode:'Duo',entry:25,prize:45,slots:'0/4',time:'Today · 8:00 PM',tag:'DUO 2v2',map:'Bermuda',format:'2v2 Custom',capacity:4},
-{id:7,title:'Duo 2v2 • Match 2',mode:'Duo',entry:25,prize:45,slots:'0/4',time:'Today · 7:00 PM',tag:'DUO 2v2',map:'Bermuda',format:'2v2 Custom',capacity:4},
-{id:8,title:'Duo 2v2 • Match 3',mode:'Duo',entry:25,prize:45,slots:'0/4',time:'Today · 8:00 PM',tag:'DUO 2v2',map:'Bermuda',format:'2v2 Custom',capacity:4},
-{id:9,title:'Duo 2v2 • Match 4',mode:'Duo',entry:25,prize:45,slots:'0/4',time:'Today · 7:00 PM',tag:'DUO 2v2',map:'Bermuda',format:'2v2 Custom',capacity:4},
-{id:10,title:'Duo 2v2 • Match 5',mode:'Duo',entry:25,prize:45,slots:'0/4',time:'Today · 8:00 PM',tag:'DUO 2v2',map:'Bermuda',format:'2v2 Custom',capacity:4},
-{id:11,title:'Squad 3v3 • Match 1',mode:'Squad',entry:50,prize:90,slots:'0/8',time:'Today · 7:00 PM',tag:'SQUAD 3v3',map:'Bermuda',format:'3v3 Custom',capacity:8},
-{id:12,title:'Squad 3v3 • Match 2',mode:'Squad',entry:50,prize:90,slots:'0/8',time:'Today · 8:00 PM',tag:'SQUAD 3v3',map:'Bermuda',format:'3v3 Custom',capacity:8},
-{id:13,title:'Squad 3v3 • Match 3',mode:'Squad',entry:50,prize:90,slots:'0/8',time:'Today · 7:00 PM',tag:'SQUAD 3v3',map:'Bermuda',format:'3v3 Custom',capacity:8},
-{id:14,title:'Squad 3v3 • Match 4',mode:'Squad',entry:50,prize:90,slots:'0/8',time:'Today · 8:00 PM',tag:'SQUAD 3v3',map:'Bermuda',format:'3v3 Custom',capacity:8},
-{id:15,title:'Squad 3v3 • Match 5',mode:'Squad',entry:50,prize:90,slots:'0/8',time:'Today · 7:00 PM',tag:'SQUAD 3v3',map:'Bermuda',format:'3v3 Custom',capacity:8},
-{id:16,title:'Squad 4v4 • Match 1',mode:'Squad',entry:80,prize:150,slots:'0/8',time:'Today · 8:00 PM',tag:'SQUAD 4v4',map:'Bermuda',format:'4v4 Custom',capacity:8},
-{id:17,title:'Squad 4v4 • Match 2',mode:'Squad',entry:80,prize:150,slots:'0/8',time:'Today · 7:00 PM',tag:'SQUAD 4v4',map:'Bermuda',format:'4v4 Custom',capacity:8},
-{id:18,title:'Squad 4v4 • Match 3',mode:'Squad',entry:80,prize:150,slots:'0/8',time:'Today · 8:00 PM',tag:'SQUAD 4v4',map:'Bermuda',format:'4v4 Custom',capacity:8},
-{id:19,title:'Squad 4v4 • Match 4',mode:'Squad',entry:80,prize:150,slots:'0/8',time:'Today · 7:00 PM',tag:'SQUAD 4v4',map:'Bermuda',format:'4v4 Custom',capacity:8},
-{id:20,title:'Squad 4v4 • Match 5',mode:'Squad',entry:80,prize:150,slots:'0/8',time:'Today · 8:00 PM',tag:'SQUAD 4v4',map:'Bermuda',format:'4v4 Custom',capacity:8,status:'open'}];
-// Tournament edits/status are persisted on this device. A shared Supabase tournament table/RPC is required for cross-device publishing.
-const RUSHNOVA_TOUR_SETTINGS_KEY='rushnova_tournament_admin_settings_v1';
-const RUSHNOVA_TOUR_DELETED_KEY='rushnova_tournament_deleted_v1';
-const RUSHNOVA_TOUR_CUSTOM_KEY='rushnova_tournament_custom_v1';
-try{
- const saved=JSON.parse(localStorage.getItem(RUSHNOVA_TOUR_SETTINGS_KEY)||'{}');
- TOURS.forEach(t=>{if(saved[t.id])Object.assign(t,saved[t.id]);if(!t.status)t.status='open';});
- const deleted=JSON.parse(localStorage.getItem(RUSHNOVA_TOUR_DELETED_KEY)||'[]');
- for(let i=TOURS.length-1;i>=0;i--)if(deleted.includes(TOURS[i].id))TOURS.splice(i,1);
- const custom=JSON.parse(localStorage.getItem(RUSHNOVA_TOUR_CUSTOM_KEY)||'[]');
- custom.forEach(t=>{if(!TOURS.some(x=>x.id===t.id))TOURS.push(t);});
-}catch(e){console.warn('Tournament settings could not be restored',e);}
+const TOURS=[]; // No hard-coded/demo tournaments. Matches must load from Supabase.
 let selectedPack=PACKS[0],matchFilter='All',matchSubcategory='All',authMode='login',currentUser=null,selectedTournamentId=null,selectedSlotNumber=null,myTournamentRegistrations=[];
+const rushnovaIncomingReferral=new URLSearchParams(location.search).get('ref');if(rushnovaIncomingReferral&&$('signupReferralCode'))$('signupReferralCode').value=rushnovaIncomingReferral.toUpperCase();
 const $=id=>document.getElementById(id);function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function packHTML(p){return `<div class="pack"><div class="pack-top"><div class="coin-icon">🪙</div><div><strong>${p.coins} Coins</strong><span class="tiny">${p.label}</span></div></div><div class="price"><b>₹${p.price}</b><button class="btn" onclick="choosePack(${p.coins})">BUY</button></div></div>`}
 function tourHTML(t){const joined=myTournamentRegistrations.find(r=>Number(r.tournament_id)===t.id);const done=t.status==='completed';return `<article class="tourney"><div class="tour-img"><span class="tour-tag">${safe(t.tag||t.mode)}</span><h3>⚔ ${safe(t.title)}</h3><div style="font-size:10px;opacity:.85">${safe(t.mode).toUpperCase()} · ${safe(t.format)} · ${safe(t.time)}</div></div><div class="tour-body"><div class="tour-metrics"><div><small>Prize Pool</small><b>₹${Number(t.prize)||0}</b></div><div><small>Entry Fee</small><b>🪙 ${Number(t.entry)||0}</b></div><div><small>Slots</small><b data-slots-id="${t.id}">${safe(t.slots||('0/'+t.capacity))}</b></div></div><div class="tour-foot"><span class="badge">● ${safe(t.map)} · ${done?'Completed':joined?'Joined':'Open'}</span><button class="btn ${joined||done?'light':''}" data-join-id="${t.id}" ${done?'disabled':''} onclick="joinTour(${t.id})">${done?'MATCH COMPLETED':joined?'VIEW ENTRY':'JOIN NOW'}</button></div></div></article>`}
@@ -257,21 +396,30 @@ async function loadMyTournamentRegistrations(){
  try{const {data,error}=await window.rushnovaSupabase.rpc('get_my_rushnova_registrations');if(error)throw error;myTournamentRegistrations=data||[];render();}catch(e){console.warn('Could not load registrations',e.message);}
 }
 async function renderJoinedRoomInfo(tournamentId){
- const box=$('joinRoomInfo');const r=myTournamentRegistrations.find(x=>Number(x.tournament_id)===Number(tournamentId));
+ const box=$('joinRoomInfo');if(!box)return;const r=myTournamentRegistrations.find(x=>Number(x.tournament_id)===Number(tournamentId));
  if(!r){box.innerHTML='';return;}
- let room=r.room_id?`<div class="room-card"><b>🔐 Room ID:</b> ${safe(r.room_id)}<br><b>🔑 Password:</b> ${safe(r.room_password||'Not published yet')}<div class="muted">Room details admin ne publish kiye hain.</div></div>`:'<div class="notice">Entry confirmed. Admin ke room ID/password publish karte hi yahan dikh jayenge.</div>';
- box.innerHTML=`<div class="card"><h3>✅ You are registered</h3><div class="muted">Slot ${Number(r.slot_number)} · Free Fire Name: ${safe(r.free_fire_name||r.free_fire_uid)} · ${Number(r.entry_coins)} coins paid</div>${room}</div>`;
+ const matchId=Number(tournamentId);
+ let room=r.room_id?`<div class="room-card"><div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap"><b>🔐 Room ID:</b><span id="roomIdValue-${matchId}" style="overflow-wrap:anywhere">${safe(r.room_id)}</span><button class="btn outline" type="button" onclick="copyRoomDetail('roomIdValue-${matchId}','roomCopyStatus-${matchId}','Room ID')">COPY ID</button></div><div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px"><b>🔑 Password:</b><span id="roomPasswordValue-${matchId}" style="overflow-wrap:anywhere">${safe(r.room_password||'Not published yet')}</span>${r.room_password?`<button class="btn outline" type="button" onclick="copyRoomDetail('roomPasswordValue-${matchId}','roomCopyStatus-${matchId}','Room password')">COPY PASSWORD</button>`:''}</div><div class="muted">Room details admin ne publish kiye hain. Inhe sirf apne registered players ke saath rakhein.</div><div id="roomCopyStatus-${matchId}" class="status"></div></div>`:'<div class="notice">Entry confirmed. Admin ke room ID/password publish karte hi yahan dikh jayenge.</div>';
+ box.innerHTML=`<div class="card"><h3>✅ You are registered</h3><div class="muted">Slot ${Number(r.slot_number)} · Free Fire Name: ${safe(r.free_fire_name||r.free_fire_uid)} · ${Number(r.entry_coins)} coins paid</div>${room}<button class="btn outline full" type="button" style="margin-top:10px" onclick="refreshJoinedRoomInfo(${matchId})">↻ REFRESH ROOM DETAILS</button></div>`;
 }
+async function refreshJoinedRoomInfo(tournamentId){try{await loadMyTournamentRegistrations();await renderJoinedRoomInfo(tournamentId);}catch(e){console.warn('Room refresh failed',e.message);}}
+async function copyTextWithFallback(value){
+ const textValue=String(value||'').trim();if(!textValue)throw new Error('Copy karne ke liye text nahi mila.');
+ if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(textValue);return true;}catch(_) {}}
+ const area=document.createElement('textarea');area.value=textValue;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';area.style.left='-9999px';document.body.appendChild(area);area.focus();area.select();area.setSelectionRange(0,area.value.length);let ok=false;try{ok=document.execCommand('copy');}finally{area.remove();}if(!ok)throw new Error('Copy blocked by browser. Text select karke Copy choose karein.');return true;
+}
+async function copyRoomDetail(valueId,statusId,label){const value=$(valueId)?.textContent||'';try{await copyTextWithFallback(value);showStatus(statusId,label+' copied successfully!','ok');}catch(e){showStatus(statusId,e.message||'Copy nahi hua. Text select karke copy karein.','info');const el=$(valueId);if(el){const range=document.createRange();range.selectNodeContents(el);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);}}}
 $('adminRoomForm').onsubmit=async e=>{
  e.preventDefault();const btn=$('adminPublishBtn');btn.disabled=true;
- try{const {data,error}=await window.rushnovaSupabase.rpc('set_rushnova_room',{p_tournament_id:Number($('adminMatchId').value),p_room_id:$('adminRoomId').value.trim(),p_room_password:$('adminRoomPassword').value.trim()});if(error)throw error;showStatus('adminRoomStatus','Room ID/password published. Registered players can now see it.','ok');}
+ try{const {data,error}=await window.rushnovaSupabase.rpc('set_rushnova_room',{p_tournament_id:Number($('adminMatchId').value),p_room_id:$('adminRoomId').value.trim(),p_room_password:$('adminRoomPassword').value.trim()});if(error)throw error;showStatus('adminRoomStatus','Room ID/password published. Registered players can now see it.','ok');await refreshTournamentRegistrations();}
  catch(err){showStatus('adminRoomStatus',err.message||'Publish failed. Ensure your profile is marked as admin in Supabase.','err');}
  finally{btn.disabled=false;}
 };
+setInterval(()=>{if(currentUser&&selectedTournamentId&&$('joinSetup')?.classList.contains('active'))refreshJoinedRoomInfo(selectedTournamentId);},20000);
 async function refreshTournamentRegistrations(){
  try{const {data,error}=await window.rushnovaSupabase.rpc('get_rushnova_tournament_counts');if(error)throw error;const counts={};(data||[]).forEach(r=>counts[r.tournament_id]=Number(r.registration_count||0));TOURS.forEach(t=>{const el=document.querySelector(`[data-slots-id="${t.id}"]`);if(el)el.textContent=`${counts[t.id]||0}/${t.capacity}`;});}catch(e){console.warn('Could not refresh tournament slots',e.message);}
 }
-function setAuthMode(mode){authMode=mode;$('nameField').style.display=mode==='signup'?'block':'none';$('authSubmit').textContent=mode==='signup'?'CREATE ACCOUNT':'LOG IN';$('loginMode').classList.toggle('active',mode==='login');$('signupMode').classList.toggle('active',mode==='signup')}
+function setAuthMode(mode){authMode=mode;$('nameField').style.display=mode==='signup'?'block':'none';if($('signupReferralField'))$('signupReferralField').style.display=mode==='signup'?'block':'none';$('authSubmit').textContent=mode==='signup'?'CREATE ACCOUNT':'LOG IN';$('loginMode').classList.toggle('active',mode==='login');$('signupMode').classList.toggle('active',mode==='signup')}
 async function loadPlayerProfile(){
  const sb=window.rushnovaSupabase;
  const {data:{user},error:authError}=await sb.auth.getUser();
@@ -378,7 +526,7 @@ $('authForm').onsubmit=async e=>{
  $('authSubmit').disabled=true;
  try{
    if(authMode==='signup'){
-     const {data,error}=await sb.auth.signUp({email,password,options:{data:{username:name,player_name:name}}});
+     const referralCode=($('signupReferralCode')?.value||new URLSearchParams(location.search).get('ref')||'').trim().toUpperCase();if(referralCode&&!/^[A-Z0-9]{4,12}$/.test(referralCode))throw new Error('Referral code 4–12 letters/numbers ka hona chahiye.');const {data,error}=await sb.auth.signUp({email,password,options:{data:{username:name,player_name:name,referral_code:referralCode||null}}});
      if(error) throw error;
      if(data.session){
        showStatus('authStatus','Account created and signed in.','ok');
@@ -428,8 +576,20 @@ $('redeemUtrForm').onsubmit=async e=>{
  }finally{btn.disabled=false}
 };
 
-window.rushnovaSupabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(()=>loadPlayerProfile(),0)});
+window.rushnovaSupabase.auth.onAuthStateChange((_event,_session)=>{setTimeout(async()=>{await loadPlayerProfile();const {data:{user}}=await window.rushnovaSupabase.auth.getUser();currentUser=user||null;if(currentUser)subscribeRushnovaNotifications();else{if(rushnovaNotificationChannel)window.rushnovaSupabase.removeChannel(rushnovaNotificationChannel);rushnovaNotificationChannel=null;const b=$('notificationBadge');if(b)b.style.display='none';}},0)});
 $('adminMatchId').innerHTML=TOURS.map(t=>`<option value="${t.id}">${t.title}</option>`).join('');
+
+// Shared server-backed admin guard used by all admin actions.
+async function rushnovaRequireAdmin(){
+ if(!window.rushnovaSupabase) throw new Error('Supabase connection is not ready.');
+ const {data:{user},error:authError}=await window.rushnovaSupabase.auth.getUser();
+ if(authError) throw authError;
+ if(!user) throw new Error('Please log in with your admin account.');
+ const {data:profile,error:profileError}=await window.rushnovaSupabase.from('profiles').select('is_admin').eq('id',user.id).maybeSingle();
+ if(profileError) throw profileError;
+ if(profile?.is_admin!==true) throw new Error('Admin access denied: profiles.is_admin must be true for this account.');
+ return user;
+}
 
 let rushnovaAdminTab='dashboard';
 function showRushnovaAdminTab(tab,button){rushnovaAdminTab=tab;document.querySelectorAll('[data-admin-tab]').forEach(b=>b.classList.toggle('active',b===button));loadRushnovaAdminTab(tab);}
@@ -471,62 +631,7 @@ async function loadRushnovaAdminTabBase(tab){
 }
 
 
-function persistRushnovaTournamentSettings(){try{const saved={};TOURS.forEach(t=>{saved[t.id]={title:t.title,mode:t.mode,entry:t.entry,prize:t.prize,time:t.time,tag:t.tag,map:t.map,format:t.format,capacity:t.capacity,status:t.status};});localStorage.setItem(RUSHNOVA_TOUR_SETTINGS_KEY,JSON.stringify(saved));localStorage.setItem(RUSHNOVA_TOUR_CUSTOM_KEY,JSON.stringify(TOURS.filter(t=>t.customMatch)));return true;}catch(e){return false;}}
-async function createRushnovaTournament(){
- const val=id=>($(id)?.value||'').trim();
- const title=val('newTourTitle'),mode=val('newTourMode'),time=val('newTourTime'),entry=Number(val('newTourEntry')),prize=Number(val('newTourPrize')),map=val('newTourMap'),format=val('newTourFormat'),tag=val('newTourTag'),capacity=Number(val('newTourCapacity'));
- if(!title||!time||!map||!format||!Number.isFinite(entry)||entry<0||!Number.isFinite(prize)||prize<0||!Number.isInteger(capacity)||capacity<1||capacity>100){showStatus('adminPanelStatus','Please fill all match fields with valid values.','err');return;}
- if(!window.rushnovaSupabase){showStatus('adminPanelStatus','Supabase connection nahi hai; shared match create nahi ho sakta.','err');return;}
- const btn=document.querySelector('#adminPanel button[onclick="createRushnovaTournament()"]');if(btn){btn.disabled=true;btn.textContent='CREATING…';}
- try{
-  const {data,error}=await window.rushnovaSupabase.from('tournaments').insert({title,mode,entry_fee:entry,status:'open'}).select('id,title,mode,entry_fee,status').single();
-  if(error)throw error;
-  if(!data||data.id==null)throw new Error('Supabase ne tournament ID return nahi ki.');
-  const t={id:Number(data.id),title:data.title||title,mode:data.mode||mode,entry:Number(data.entry_fee??entry),prize,slots:'0/'+capacity,time,tag:tag||mode.toUpperCase(),map,format,capacity,status:data.status||'open',customMatch:true};
-  const existing=TOURS.findIndex(x=>Number(x.id)===Number(t.id));if(existing>=0)TOURS[existing]=t;else TOURS.push(t);
-  if(!persistRushnovaTournamentSettings())throw new Error('Match Supabase mein create hua, lekin local display settings save nahi ho paayi.');
-  render();showStatus('adminPanelStatus','New match Supabase mein create ho gaya (ID '+t.id+'). Slot chooser ab dikhna chahiye. Join tabhi complete hoga jab join_rushnova_tournament RPC is tournament ID ko accept kare.','ok');loadRushnovaAdminTab('tournaments');
- }catch(e){
-  showStatus('adminPanelStatus','Supabase match create nahi hua: '+(e.message||'Unknown error')+'. Table columns/RLS policy check karein; local-only match create nahi kiya gaya.','err');
- }finally{if(btn){btn.disabled=false;btn.textContent='CREATE NEW MATCH';}}
-}
-
-function deleteCompletedRushnovaTournament(id){
- const t=TOURS.find(x=>Number(x.id)===Number(id));if(!t)return;
- if(t.status!=='completed'){showStatus('adminPanelStatus','Only completed matches can be deleted. Mark the match complete first.','err');return;}
- if(!confirm('Delete completed match “'+t.title+'” from this device? Supabase registration/history rows will NOT be deleted.'))return;
- const deleted=JSON.parse(localStorage.getItem(RUSHNOVA_TOUR_DELETED_KEY)||'[]');if(!deleted.includes(t.id))deleted.push(t.id);localStorage.setItem(RUSHNOVA_TOUR_DELETED_KEY,JSON.stringify(deleted));
- const idx=TOURS.indexOf(t);if(idx>=0)TOURS.splice(idx,1);
- if(!persistRushnovaTournamentSettings()){showStatus('adminPanelStatus','Could not save delete on this device.','err');return;}
- if(selectedTournamentId===Number(id)){selectedTournamentId=null;selectedSlotNumber=null;}
- render();showStatus('adminPanelStatus','Completed match removed from this device. Database records are preserved. Create a fresh match below.','ok');loadRushnovaAdminTab('tournaments');
-}
-function saveRushnovaTournament(id){const t=TOURS.find(x=>x.id===Number(id));if(!t)return;const val=(key)=>$(key+'_'+id)?.value?.trim()??'';const entry=Number(val('tourEntry')),prize=Number(val('tourPrize')),capacity=Number(val('tourCapacity'));if(!val('tourTitle')||!val('tourTime')||!val('tourMap')||!val('tourFormat')||!Number.isFinite(entry)||entry<0||!Number.isFinite(prize)||prize<0||!Number.isInteger(capacity)||capacity<1||capacity>100){showStatus('adminPanelStatus','Please check title, time, map, format, entry, prize and capacity values.','err');return;}Object.assign(t,{title:val('tourTitle'),mode:val('tourMode'),time:val('tourTime'),entry,prize,map:val('tourMap'),format:val('tourFormat'),tag:val('tourTag')||val('tourMode'),capacity,slots:'0/'+capacity});if(!persistRushnovaTournamentSettings()){showStatus('adminPanelStatus','Browser storage unavailable; changes were not saved.','err');return;}render();showStatus('adminPanelStatus','Match '+id+' changes saved on this device.','ok');loadRushnovaAdminTab('tournaments');}
-async function setRushnovaTournamentStatus(id,status){
- const t=TOURS.find(x=>x.id===Number(id));
- if(!t||!['open','completed'].includes(status))return;
- // Keep the existing local admin status behavior, then force a fresh Supabase slot/count read.
- t.status=status;
- if(!persistRushnovaTournamentSettings()){
-  showStatus('adminPanelStatus','Could not save match status on this device.','err');return;
- }
- if(status==='open'){
-  selectedSlotNumber=null;
-  try{
-   await refreshTournamentRegistrations();
-   if(selectedTournamentId===Number(id)) await loadJoinSlots(t);
-   showStatus('adminPanelStatus','Match reopened. Slot status refreshed from Supabase. If old slots still show TAKEN, the database slot RPC must be corrected/reset; this button does not delete player records.','ok');
-  }catch(e){showStatus('adminPanelStatus','Match reopened locally, but Supabase slot refresh failed: '+(e.message||'unknown error'),'err');}
- }else{
-  showStatus('adminPanelStatus','Match marked complete; JOIN is disabled on this device.','ok');
- }
- render();
- loadRushnovaAdminTab('tournaments');
-}
-
-
-/* RUSHNOVA FINAL CONNECTIVITY LAYER
-   Public HTML contains only the browser-safe publishable key. Money-moving operations stay in SQL/RPC/Edge Functions. */
+// Browser-only demo tournament CRUD removed; use Supabase-backed tournament manager only.
 let rushnovaLiveMatchesLoaded = false;
 let rushnovaLiveMatchesError = '';
 let rushnovaMatchesLoading = false;
@@ -680,37 +785,29 @@ async function refreshTournamentRegistrations() {
  } catch(e) { console.warn('Live registration counts could not load:',e.message); }
 }
 
+function rushnovaRankTier(rank){const n=Number(rank)||999999;if(n<=3)return {name:'MASTER',icon:'👑'};if(n<=10)return {name:'DIAMOND',icon:'💎'};if(n<=25)return {name:'PLATINUM',icon:'🔷'};if(n<=50)return {name:'GOLD',icon:'🥇'};if(n<=75)return {name:'SILVER',icon:'🥈'};return {name:'BRONZE',icon:'🥉'};}
+function renderRushnovaRankBoard(data){
+ const podium=$('rankPodium'),box=$('rankingList');
+ if(!data?.length){if(podium)podium.innerHTML='<div class="rank-podium-loading">🏆 No verified leaderboard entries yet. Play matches and check back after results are published.</div>';if(box)box.innerHTML='<div class="empty">Leaderboard entries will appear here after verified results are published.</div>';return;}
+ const sorted=[...data].sort((a,b)=>Number(a.rank_number||999999)-Number(b.rank_number||999999));
+ if(podium){const winners=[sorted.find(p=>Number(p.rank_number)===2)||sorted[1],sorted.find(p=>Number(p.rank_number)===1)||sorted[0],sorted.find(p=>Number(p.rank_number)===3)||sorted[2]];const places=[2,1,3];podium.innerHTML=winners.map((p,i)=>{if(!p)return '<div class="podium-card"><div class="podium-crown">🏅</div><div class="podium-name">Awaiting</div><div class="podium-place">#'+places[i]+'</div><div class="podium-base"></div></div>';return `<div class="podium-card ${places[i]===1?'first':''}"><div class="podium-crown">${places[i]===1?'👑':places[i]===2?'🥈':'🥉'}</div><div class="podium-avatar">${safe(String(p.player_name||'P').trim().charAt(0).toUpperCase()||'P')}</div><div class="podium-name" title="${safe(p.player_name||'Player')}">${safe(p.player_name||'Player')}</div><div class="podium-place">RANK #${Number(p.rank_number)||places[i]}</div><div class="podium-points">${Number(p.coins||0).toLocaleString('en-IN')} pts</div><div class="podium-base"></div></div>`;}).join('');}
+ if(box){box.innerHTML=sorted.map(p=>{const rank=Number(p.rank_number)||0,tier=rushnovaRankTier(rank);return `<div class="rank-row"><span class="rank-row-number ${rank<=3?'top-rank':''}">#${rank||'—'}</span><div class="rank-row-avatar">${tier.icon}</div><div class="rank-row-info"><div class="rank-row-name">${safe(p.player_name||'Player')}</div><div class="rank-row-tier">${tier.name} TIER</div></div><div class="rank-row-score">${Number(p.coins||0).toLocaleString('en-IN')}<small>LEADERBOARD PTS</small></div></div>`;}).join('');}
+}
 async function loadRushnovaLeaderboard(force=false) {
  if(rushnovaLeaderboardPromise&&!force)return rushnovaLeaderboardPromise;
  if(force){rushnovaLeaderboardLoaded=false;rushnovaLeaderboardPromise=null;}
  const box=$('rankingList'); if(!box)return;
  rushnovaLeaderboardPromise=(async()=>{
   box.innerHTML='<div class="empty">Loading real player rankings…</div>';
+  const podium=$('rankPodium');if(podium)podium.innerHTML='<div class="rank-podium-loading">Loading champions…</div>';
   try {
+   if(!window.rushnovaSupabase)throw new Error('Supabase client is unavailable.');
    const {data,error}=await window.rushnovaSupabase.from('rushnova_rank_list').select('player_name,rank_number,coins').order('rank_number',{ascending:true}).limit(100); if(error)throw error;
-   if(!data?.length)box.innerHTML='<div class="empty">Rank list abhi admin ne publish nahi ki hai.</div>';
-   else box.innerHTML=data.map(p=>`<div class="player-row"><span class="rank">#${Number(p.rank_number)||0}</span><div class="avatar">${safe((p.player_name||'P').slice(0,1).toUpperCase())}</div><div class="player-name">${safe(p.player_name||'Player')}</div><div class="points">🪙 ${Number(p.coins||0).toLocaleString('en-IN')}</div></div>`).join('');
-   rushnovaLeaderboardLoaded=true;
-  } catch(e) { box.innerHTML='<div class="empty">Real leaderboard not available: '+safe(e.message||'run the SQL setup')+'</div>'; }
+   renderRushnovaRankBoard(data||[]);rushnovaLeaderboardLoaded=true;
+  } catch(e) { const message=safe(e.message||'run the SQL setup');box.innerHTML='<div class="empty">Real leaderboard not available: '+message+'</div>';if(podium)podium.innerHTML='<div class="rank-podium-loading">Leaderboard could not be loaded. Refresh after checking the Supabase rank view.</div>'; }
  })(); return rushnovaLeaderboardPromise;
 }
-async function loadRushnovaMyStats() {
- try {
-  const {data,error}=await window.rushnovaSupabase.rpc('get_my_rushnova_stats'); if(error)throw error;
-  const r=Array.isArray(data)?data[0]:data; if(!r)return;
-  if($('walletMatches'))$('walletMatches').textContent=Number(r.total_matches||0).toLocaleString('en-IN');
-  if($('walletWins'))$('walletWins').textContent=Number(r.wins||0).toLocaleString('en-IN');
-  if($('walletPrize'))$('walletPrize').textContent='₹'+Number(r.prize_coins||0).toLocaleString('en-IN');
- } catch(e) { console.warn('Player stats RPC unavailable:',e.message); }
-}
-
-async function rushnovaRequireAdmin() {
- const {data:{user},error:authError}=await window.rushnovaSupabase.auth.getUser();
- if(authError||!user)throw new Error('Please log in with the admin account first.');
- const {data:profile,error}=await window.rushnovaSupabase.from('profiles').select('is_admin').eq('id',user.id).maybeSingle();
- if(error)throw error; if(!profile?.is_admin)throw new Error('Access denied: profiles.is_admin must be true for this account.');
- return user;
-}
+async function loadRushnovaMyStats() { /* Stats removed until verified server-side stats are implemented. */ }
 function rushnovaMatchScheduleInputs() {
  const count=Math.max(1,Math.min(30,Number($('rushnovaBatchCount')?.value||5)));
  const startRaw=$('rushnovaBatchStart')?.value; const start=startRaw?new Date(startRaw):new Date(Date.now()+60*60*1000);
@@ -908,7 +1005,9 @@ async function loadRushnovaRedeemHistory() {
 // Profile-only features: transaction history, password update, and policy panels.
 function toggleProfilePanel(id){const panel=$(id);if(!panel)return;const profile=$('profile');const host=panel.closest('.card');profile.classList.add('profile-detail-mode');document.querySelectorAll('#profile .profile-panel').forEach(p=>p.classList.toggle('open',p.id===id));document.querySelectorAll('#profile > .card').forEach(c=>{c.style.display=(c===host)?'block':'none'});const title=host.querySelector('.profile-menu-title');if(title)title.style.display='none';const menu=host.querySelector('.profile-menu');if(menu)menu.style.display='none';panel.style.display='block';}
 function closeProfilePanel(){const profile=$('profile');profile.classList.remove('profile-detail-mode');document.querySelectorAll('#profile .profile-panel').forEach(p=>{p.classList.remove('open');p.style.display=''});document.querySelectorAll('#profile > .card').forEach(c=>c.style.display='');const host=$('referPanel')?.closest('.card');if(host){const title=host.querySelector('.profile-menu-title');if(title)title.style.display='';const menu=host.querySelector('.profile-menu');if(menu)menu.style.display='';}}
-async function copyRushnovaReferralLink(){const input=$('myReferralLink');const status=$('referCopyStatus');const value=input?.value||'https://amisk2166-cmyk.github.io/Rushnova/';try{await navigator.clipboard.writeText(value);showStatus('referCopyStatus','Rushnova link copied! Share it with your friends.','ok');}catch(e){if(input){input.focus();input.select();try{const ok=document.execCommand('copy');showStatus('referCopyStatus',ok?'Rushnova link copied! Share it with your friends.':'Link selected. Copy it manually.','info');}catch(_){showStatus('referCopyStatus','Long-press the link above and choose Copy.','info');}}}}
+async function loadRushnovaReferralStats(){const codeEl=$('myReferralCode'),linkEl=$('myReferralLink');if(!currentUser||!window.rushnovaSupabase){if(codeEl)codeEl.value='Login required';return;}try{const {data,error}=await window.rushnovaSupabase.rpc('get_rushnova_referral_stats');if(error)throw error;const row=Array.isArray(data)?data[0]:data;if(!row||!row.referral_code)throw new Error('Referral SQL setup required');const code=String(row.referral_code).toUpperCase();if(codeEl)codeEl.value=code;if(linkEl)linkEl.value='https://rushnova-ff.vercel.app/?ref='+encodeURIComponent(code)+'&signup=1#profile';const animateReferralCount=(id,target)=>{const el=$(id);if(!el)return;const end=Math.max(0,Number(target)||0),start=Number((el.textContent||'0').replace(/[^0-9]/g,''))||0,duration=550,t0=performance.now();const tick=now=>{const pct=Math.min(1,(now-t0)/duration),ease=1-Math.pow(1-pct,3);el.textContent=Math.round(start+(end-start)*ease).toLocaleString('en-IN');if(pct<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);};animateReferralCount('referralTotalCount',row.total_referrals);animateReferralCount('referralSuccessCount',row.successful_referrals);if($('referralStatsStatus'))showStatus('referralStatsStatus','Rewards credited: ₹'+Number(row.total_reward_inr||0)+'. Counts are loaded from Supabase.','ok');}catch(e){if(codeEl)codeEl.value='Setup needed';if($('referralStatsStatus'))showStatus('referralStatsStatus','Referral setup is not active: '+(e.message||'Run the included SQL file in Supabase first.'),'err');}}
+async function copyRushnovaReferralCode(){const value=$('myReferralCode')?.value||'';if(!value||value==='Loading…'||value==='Setup needed'||value==='Login required'){showStatus('referralStatsStatus','Login karo aur referral setup complete hone do.','err');return;}try{await copyTextWithFallback(value);showStatus('referralStatsStatus','Referral code copied: '+value,'ok');}catch(e){const el=$('myReferralCode');el?.focus();el?.select();showStatus('referralStatsStatus','Code select kar diya hai; long-press karke Copy choose karo.','info');}}
+async function copyRushnovaReferralLink(){const input=$('myReferralLink');const status=$('referCopyStatus');const value=input?.value||'https://rushnova-ff.vercel.app/';try{await copyTextWithFallback(value);showStatus('referCopyStatus','Rushnova link copied! Share it with your friends.','ok');}catch(e){if(input){input.focus();input.select();showStatus('referCopyStatus','Link select kar diya hai; long-press karke Copy choose karo.','info');}}}
 async function loadCoinTransactions(){
  const box=$('coinTransactionList');if(!box)return;
  if(!currentUser){box.innerHTML='<div class="empty">Please log in first.</div>';return;}
@@ -972,8 +1071,36 @@ async function loadCoinTransactions(){
 }
 $('changePasswordForm').onsubmit=async e=>{e.preventDefault();const a=$('newPassword').value,b=$('confirmNewPassword').value;if(a.length<8){showStatus('changePasswordStatus','Password must be at least 8 characters.','err');return;}if(a!==b){showStatus('changePasswordStatus','Passwords do not match.','err');return;}const btn=$('changePasswordForm').querySelector('button[type="submit"]');btn.disabled=true;try{const {error}=await window.rushnovaSupabase.auth.updateUser({password:a});if(error)throw error;showStatus('changePasswordStatus','Password updated successfully.','ok');$('changePasswordForm').reset();}catch(err){showStatus('changePasswordStatus','Password update failed: '+(err.message||'Please log in again and retry.'),'err');}finally{btn.disabled=false;}};
 
+// Referral links open the Profile screen directly with Create Account selected and code prefilled.
+(function initReferralLanding(){
+ const params=new URLSearchParams(location.search);
+ const incoming=(params.get('ref')||'').trim().toUpperCase();
+ if(incoming && params.get('signup')==='1'){
+   const field=$('signupReferralCode'); if(field) field.value=incoming;
+   openScreen('profile');
+   if(typeof setAuthMode==='function') setAuthMode('signup');
+   setTimeout(()=>{const profile=$('profile');if(profile)profile.scrollIntoView({behavior:'smooth',block:'start'});const name=$('playerName');if(name&&name.offsetParent!==null)name.focus({preventScroll:true});},120);
+ }
+})();
+
+// Personal notification inbox. Requires Rushnova_Match_Notifications_Setup.sql.
+let rushnovaNotificationChannel=null;
+async function loadRushnovaNotifications(){
+ const box=$('notificationList'); if(!box)return;
+ if(!currentUser){box.innerHTML='<div class="empty">Notifications dekhne ke liye pehle login karo.</div>';const b=$('notificationBadge');if(b)b.style.display='none';return;}
+ box.innerHTML='<div class="empty">Loading notifications…</div>';
+ try{const {data,error}=await window.rushnovaSupabase.from('rushnova_notifications').select('id,title,message,notification_type,is_read,created_at,action_screen').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(50);if(error)throw error;
+ const unread=(data||[]).filter(n=>!n.is_read).length;const badge=$('notificationBadge');if(badge){badge.textContent=unread>99?'99+':String(unread);badge.style.display=unread?'block':'none';}
+ if(!data?.length){box.innerHTML='<div class="empty">Abhi koi notification nahi hai. 🔔</div>';return;}
+ const icons={room:'🔑',match:'🎮',result:'🏆',wallet:'💰',withdrawal:'💸',system:'📢'};
+ box.innerHTML=data.map(n=>`<div class="notification-item ${n.is_read?'':'unread'}"><div class="notification-icon">${icons[n.notification_type]||'🔔'}</div><div class="notification-copy"><b>${safe(n.title||'Rushnova Update')}</b><p>${safe(n.message||'')}</p><small>${safe(String(n.created_at||'').replace('T',' ').slice(0,16))}</small>${n.action_screen?`<div style="margin-top:7px"><button class="btn outline" style="padding:6px 9px;font-size:10px" onclick="openScreen('${safe(n.action_screen)}')">OPEN</button></div>`:''}</div>${n.is_read?'':'<span class="notification-unread-dot"></span>'}</div>`).join('');
+ }catch(e){box.innerHTML='<div class="empty">Notification setup pending. SQL setup file run karne ke baad refresh karo.</div>';const badge=$('notificationBadge');if(badge)badge.style.display='none';}
+}
+async function markRushnovaNotificationsRead(){if(!currentUser){showStatus('notificationStatus','Pehle login karo.','err');return;}try{const {error}=await window.rushnovaSupabase.from('rushnova_notifications').update({is_read:true}).eq('user_id',currentUser.id).eq('is_read',false);if(error)throw error;await loadRushnovaNotifications();showStatus('notificationStatus','All notifications marked as read.','ok');}catch(e){showStatus('notificationStatus','Could not update notifications. SQL setup check karo.','err');}}
+function subscribeRushnovaNotifications(){if(!currentUser||!window.rushnovaSupabase)return;if(rushnovaNotificationChannel){window.rushnovaSupabase.removeChannel(rushnovaNotificationChannel);rushnovaNotificationChannel=null;}rushnovaNotificationChannel=window.rushnovaSupabase.channel('rushnova-notifications-'+currentUser.id).on('postgres_changes',{event:'*',schema:'public',table:'rushnova_notifications',filter:'user_id=eq.'+currentUser.id},()=>loadRushnovaNotifications()).subscribe();loadRushnovaNotifications();}
+
 render();
 loadRushnovaLiveTournaments();
 loadRushnovaLeaderboard();
-loadPlayerProfile().then(async()=>{await loadMyTournamentRegistrations();await refreshTournamentRegistrations();await loadRushnovaMyStats();});
+loadPlayerProfile().then(async()=>{if(currentUser)subscribeRushnovaNotifications();await loadMyTournamentRegistrations();await refreshTournamentRegistrations();await loadRushnovaMyStats();});
 </script></body></html>
