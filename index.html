@@ -1036,7 +1036,8 @@ async function loadCoinTransactions(){
    else amount=amount>=0?Math.abs(amount):-Math.abs(amount);
    if(!Number.isFinite(amount)||amount===0)return;
    let desc=source==='Bonus'?'Bonus: '+String(pick(['note','description','type'])||'Admin bonus'):source==='Add Money'?'Add Money · '+String(pick(['method'])||'Top-up'):type==='match_win'?'Match Winning':type==='match_entry'?'Match Entry':type==='redeem'?'Winning Wallet Withdrawal':type==='topup'?'Wallet Top-up':type==='refund'?'Refund':type==='adjustment'?'Wallet Adjustment':source;
-   if(reference.startsWith('full_map_kill_award:')) desc='Full Map Kill Reward';
+   if(reference.startsWith('referral_reward:')) desc='Referral Reward';
+   else if(reference.startsWith('full_map_kill_award:')) desc='Full Map Kill Reward';
    all.push({amount,desc,date:String(pick(['created_at','inserted_at','timestamp'])||''),id:String(pick(['id'])||'')});
   });
  };
