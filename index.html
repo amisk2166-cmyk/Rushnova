@@ -306,7 +306,13 @@ const RUSHNOVA_MERCHANT_UPI = 'amishhj@slc';
 const RUSHNOVA_MERCHANT_NAME = 'Rushnova';
 const TOURS=[]; // No hard-coded/demo tournaments. Matches must load from Supabase.
 let selectedPack=PACKS[0],matchFilter='All',matchSubcategory='All',authMode='login',currentUser=null,selectedTournamentId=null,selectedSlotNumber=null,myTournamentRegistrations=[];
-const rushnovaIncomingReferral=new URLSearchParams(location.search).get('ref');if(rushnovaIncomingReferral&&$('signupReferralCode'))$('signupReferralCode').value=rushnovaIncomingReferral.toUpperCase();
+const rushnovaIncomingReferral = new URLSearchParams(location.search).get('ref');
+if (rushnovaIncomingReferral) {
+  const referralInput = document.getElementById('signupReferralCode');
+  if (referralInput) {
+    referralInput.value = rushnovaIncomingReferral.toUpperCase();
+  }
+}
 const $=id=>document.getElementById(id);function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function packHTML(p){return `<div class="pack"><div class="pack-top"><div class="coin-icon">🪙</div><div><strong>${p.coins} Coins</strong><span class="tiny">${p.label}</span></div></div><div class="price"><b>₹${p.price}</b><button class="btn" onclick="choosePack(${p.coins})">BUY</button></div></div>`}
 function tourHTML(t){const joined=myTournamentRegistrations.find(r=>Number(r.tournament_id)===t.id);const done=t.status==='completed';return `<article class="tourney"><div class="tour-img"><span class="tour-tag">${safe(t.tag||t.mode)}</span><h3>⚔ ${safe(t.title)}</h3><div style="font-size:10px;opacity:.85">${safe(t.mode).toUpperCase()} · ${safe(t.format)} · ${safe(t.time)}</div></div><div class="tour-body"><div class="tour-metrics"><div><small>Prize Pool</small><b>₹${Number(t.prize)||0}</b></div><div><small>Entry Fee</small><b>🪙 ${Number(t.entry)||0}</b></div><div><small>Slots</small><b data-slots-id="${t.id}">${safe(t.slots||('0/'+t.capacity))}</b></div></div><div class="tour-foot"><span class="badge">● ${safe(t.map)} · ${done?'Completed':joined?'Joined':'Open'}</span><button class="btn ${joined||done?'light':''}" data-join-id="${t.id}" ${done?'disabled':''} onclick="joinTour(${t.id})">${done?'MATCH COMPLETED':joined?'VIEW ENTRY':'JOIN NOW'}</button></div></div></article>`}
