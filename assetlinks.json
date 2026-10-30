@@ -1,8 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target": {
-        "namespace": "android_app",
-        "package_name": "app.vercel.rushnova_ff.twa",
-        "sha256_cert_fingerprints": ["76:1D:36:6A:41:B5:77:9A:C6:26:BB:4D:9A:90:E8:F4:31:EE:30:5F:CA:7B:CB:EE:80:40:6F:B2:C7:4B:16:64"]
-      }
-    }]
