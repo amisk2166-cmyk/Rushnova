@@ -1,14 +1,14 @@
-const CACHE_NAME = 'rushnova-cache-v1';
+'use strict';
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(self.clients.claim());
 });
 
-// Receive push notification from Supabase Edge Function
+// Receive Rushnova push notification
 self.addEventListener('push', (event) => {
   let data = {};
 
@@ -16,23 +16,20 @@ self.addEventListener('push', (event) => {
     data = event.data ? event.data.json() : {};
   } catch (error) {
     data = {
-      title: 'Rushnova',
-      message: event.data ? event.data.text() : 'You have a new notification.'
+      body: event.data ? event.data.text() : 'New Rushnova notification'
     };
   }
 
   const title = data.title || 'Rushnova';
+
   const options = {
-    body: data.message || data.body || 'You have a new notification.',
-    icon: '/images/icon-192.png',
-    badge: '/images/icon-192.png',
+    body: data.body || data.message || 'You have a new notification.',
     data: {
-      url: data.url || data.action_url || (
-        data.action_screen
-          ? '/?screen=' + encodeURIComponent(data.action_screen)
-          : '/'
-      )
-    }
+      url: '/',
+      actionScreen: data.url || '/'
+    },
+    tag: 'rushnova-notification',
+    renotify: true
   };
 
   event.waitUntil(
@@ -44,23 +41,21 @@ self.addEventListener('push', (event) => {
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
-  const targetUrl = new URL(
-    event.notification.data?.url || '/',
-    self.location.origin
-  ).href;
+  const targetUrl = new URL('/', self.location.origin).href;
 
   event.waitUntil(
-    clients.matchAll({
+    self.clients.matchAll({
       type: 'window',
       includeUncontrolled: true
-    }).then((clientList) => {
+    }).then(async (clientList) => {
       for (const client of clientList) {
-        if (client.url.startsWith(self.location.origin) && 'focus' in client) {
-          return client.navigate(targetUrl).then(() => client.focus());
+        if (client.url.startsWith(self.location.origin)) {
+          await client.focus();
+          return;
         }
       }
 
-      return clients.openWindow(targetUrl);
+      return self.clients.openWindow(targetUrl);
     })
   );
 });
