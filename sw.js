@@ -21,7 +21,8 @@ self.addEventListener('push', (event) => {
     };
   }
 
-  const title = data.title || 'Rushnova';
+  // Always show Rushnova as notification title
+  const title = 'Rushnova';
 
   // Allow only URLs from the Rushnova website
   let targetUrl = '/';
