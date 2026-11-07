@@ -21,14 +21,17 @@ self.addEventListener('push', (event) => {
     };
   }
 
-  // Always show Rushnova as notification title
-  const title = 'Rushnova';
+  // Show announcement title; fallback to Rushnova
+  const title = data.title || 'Rushnova';
 
-  // Allow only URLs from the Rushnova website
   let targetUrl = '/';
 
   try {
-    const requestedUrl = new URL(data.url || data.actionScreen || '/', self.location.origin);
+    const requestedUrl = new URL(
+      data.url || data.actionScreen || '/',
+      self.location.origin
+    );
+
     if (requestedUrl.origin === self.location.origin) {
       targetUrl = requestedUrl.href;
     }
@@ -52,11 +55,12 @@ self.addEventListener('push', (event) => {
   );
 });
 
-// Open the correct Rushnova screen when notification is tapped
+// Open correct Rushnova screen when notification is tapped
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 
-  const targetUrl = event.notification.data?.url || (self.location.origin + '/');
+  const targetUrl =
+    event.notification.data?.url || (self.location.origin + '/');
 
   event.waitUntil(
     self.clients.matchAll({
