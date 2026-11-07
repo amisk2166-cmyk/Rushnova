@@ -1,80 +1,97 @@
+
 'use strict';
 
+// Rushnova Service Worker
+
 self.addEventListener('install', (event) => {
-event.waitUntil(self.skipWaiting());
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener('activate', (event) => {
-event.waitUntil(self.clients.claim());
+  event.waitUntil(self.clients.claim());
 });
 
-// Receive Rushnova push notification
+// Receive Rushnova Push Notification
 self.addEventListener('push', (event) => {
-let data = {};
+  event.waitUntil((async () => {
+    let data = {};
 
-try {
-data = event.data ? event.data.json() : {};
-} catch (error) {
-data = {
-body: event.data ? event.data.text() : 'New Rushnova notification'
-};
-}
+    try {
+      data = event.data ? event.data.json() : {};
+    } catch (error) {
+      data = {
+        body: event.data
+          ? event.data.text()
+          : 'New Rushnova notification'
+      };
+    }
 
-const title = data.title || 'Rushnova';
+    const title = data.title || 'Rushnova';
 
-// Allow only URLs from the Rushnova website
-let targetUrl = '/';
+    // Validate notification destination
+    let targetUrl = self.location.origin + '/';
 
-try {
-const requestedUrl = new URL(data.url || data.actionScreen || '/', self.location.origin);
-if (requestedUrl.origin === self.location.origin) {
-targetUrl = requestedUrl.href;
-}
-} catch (error) {
-targetUrl = self.location.origin + '/';
-}
+    try {
+      const requestedUrl = new URL(
+        data.url || data.actionScreen || '/',
+        self.location.origin
+      );
 
-const options = {
-body: data.body || data.message || 'You have a new notification.',
-icon: '/icon-192.png',
-badge: '/badge-72.png',
-data: {
-url: targetUrl
-},
-tag: data.tag || 'rushnova-notification',
-renotify: true
-};
+      if (requestedUrl.origin === self.location.origin) {
+        targetUrl = requestedUrl.href;
+      }
+    } catch (error) {
+      targetUrl = self.location.origin + '/';
+    }
 
-event.waitUntil(
-self.registration.showNotification(title, options)
-);
+    const options = {
+      body: data.body || data.message ||
+        'You have a new Rushnova notification.',
+
+      // Correct Rushnova logo paths
+      icon: '/images/icon-192.png',
+      badge: '/images/badge-72.png',
+
+      data: {
+        url: targetUrl
+      },
+
+      tag: data.tag || 'rushnova-notification',
+      renotify: true,
+      timestamp: Date.now()
+    };
+
+    await self.registration.showNotification(title, options);
+  })());
 });
 
-// Open the correct Rushnova screen when notification is tapped
+
+// Open Rushnova screen when notification is clicked
 self.addEventListener('notificationclick', (event) => {
-event.notification.close();
+  event.notification.close();
 
-const targetUrl = event.notification.data?.url || (self.location.origin + '/');
+  const targetUrl =
+    event.notification.data?.url ||
+    (self.location.origin + '/');
 
-event.waitUntil(
-self.clients.matchAll({
-type: 'window',
-includeUncontrolled: true
-}).then(async (clientList) => {
-for (const client of clientList) {
-if (client.url.startsWith(self.location.origin)) {
-await client.focus();
+  event.waitUntil((async () => {
+    const clientList = await self.clients.matchAll({
+      type: 'window',
+      includeUncontrolled: true
+    });
 
-if (client.navigate) {  
-        await client.navigate(targetUrl);  
-      }  
+    for (const client of clientList) {
+      if (new URL(client.url).origin === self.location.origin) {
+        await client.focus();
 
-      return;  
-    }  
-  }  
+        if (client.navigate) {
+          await client.navigate(targetUrl);
+        }
 
-  return self.clients.openWindow(targetUrl);  
-})
+        return;
+      }
+    }
 
-);
+    await self.clients.openWindow(targetUrl);
+  })());
 });
