@@ -23,7 +23,8 @@ self.addEventListener('push', (event) => {
       };
     }
 
-    const title = 'Rushnova';
+    // Admin notification title and message
+    const title = data.title || 'Rushnova';
     const message = data.message || data.body ||
       'You have a new Rushnova notification.';
 
@@ -38,7 +39,7 @@ self.addEventListener('push', (event) => {
   })());
 });
 
-// Close notification only. No link will open.
+// Close notification only. Never open any link.
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
 });
