@@ -1146,6 +1146,51 @@ $('redeemUtrForm').onsubmit=async e=>{
 };
 
 window.rushnovaSupabase.auth.onAuthStateChange((event,_session)=>{if(event==='PASSWORD_RECOVERY'){showRushnovaPasswordRecovery();return;}setTimeout(async()=>{await loadPlayerProfile();const {data:{user}}=await window.rushnovaSupabase.auth.getUser();currentUser=user||null;syncRushnovaSupportVisibility();if(currentUser){subscribeRushnovaNotifications();refreshRushnovaPushButton();}else{if(rushnovaNotificationChannel)window.rushnovaSupabase.removeChannel(rushnovaNotificationChannel);rushnovaNotificationChannel=null;const b=$('notificationBadge');if(b)b.style.display='none';}},0)});
+// Explicit recovery-link bootstrap: show the reset form when Supabase redirects
+// back with a PKCE code or implicit recovery tokens, even if the auth event is late.
+(async function initRushnovaRecoveryLink(){
+ const params=new URLSearchParams(location.search);
+ const hash=new URLSearchParams((location.hash||'').replace(/^#/,''));
+ const hasRecoveryCode=params.has('code');
+ const hasRecoveryTokens=hash.has('access_token')&&hash.has('refresh_token');
+ const isRecoveryHash=hash.get('type')==='recovery';
+ const authError=params.get('error_description')||hash.get('error_description')||params.get('error')||hash.get('error');
+ if(authError && (hasRecoveryCode||hasRecoveryTokens||isRecoveryHash||params.get('type')==='recovery')){
+  showStatus('passwordRecoveryStatus','Reset link open nahi hua: '+decodeURIComponent(String(authError).replace(/\+/g,' ')),'err');
+  showRushnovaPasswordRecovery();
+  return;
+ }
+ if(!hasRecoveryCode&&!hasRecoveryTokens&&!isRecoveryHash&&params.get('type')!=='recovery')return;
+ try{
+  const auth=window.rushnovaSupabase.auth;
+  let {data:{session},error}=await auth.getSession();
+  if(error)throw error;
+  if(!session&&hasRecoveryTokens){
+   const restored=await auth.setSession({access_token:hash.get('access_token'),refresh_token:hash.get('refresh_token')});
+   if(restored.error)throw restored.error;
+   session=restored.data.session;
+  }
+  if(!session&&hasRecoveryCode){
+   const exchanged=await auth.exchangeCodeForSession(params.get('code'));
+   if(exchanged.error){
+    const retry=await auth.getSession();
+    if(retry.error||!retry.data.session)throw exchanged.error;
+    session=retry.data.session;
+   }else session=exchanged.data.session;
+  }
+  if(session){
+   showRushnovaPasswordRecovery();
+   // Keep the recovery session in Supabase storage, but remove one-time credentials from the visible URL.
+   try{const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete('code');cleanUrl.searchParams.delete('error');cleanUrl.searchParams.delete('error_description');cleanUrl.hash='';history.replaceState(history.state,'',cleanUrl.pathname+cleanUrl.search);}catch(_){}
+  }else{
+   showRushnovaPasswordRecovery();
+   showStatus('passwordRecoveryStatus','Recovery session nahi mila. Gmail ka latest reset link isi browser mein dobara open karo.','err');
+  }
+ }catch(err){
+  showRushnovaPasswordRecovery();
+  showStatus('passwordRecoveryStatus','Reset link verify nahi hua: '+(err.message||'Latest Gmail reset link dobara open karo.'),'err');
+ }
+})();
 $('adminMatchId').innerHTML=TOURS.map(t=>`<option value="${t.id}">${t.title}</option>`).join('');
 
 // Shared server-backed admin guard used by all admin actions.
