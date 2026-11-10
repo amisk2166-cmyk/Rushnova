@@ -683,7 +683,8 @@ const RUSHNOVA_SUPABASE_URL = "https://vpgbftgphjpxwqmntmks.supabase.co";
 const RUSHNOVA_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_brj0k-Omwskv1cbXwTltvw_4kEEUPoz";
 // Paste the VAPID PUBLIC key generated for this project here. Never put the VAPID private key in this file.
 const RUSHNOVA_VAPID_PUBLIC_KEY = "BC6QUokGSHAXInVjHv2W2YZJRqeazZ8Q0L7or5dbraB4GmARujHwP9trIdCAzRL3h7cD9uc_RQ974kjv_o0IvU0";
-window.rushnovaSupabase = window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
+// Password reset uses Supabase implicit recovery tokens so Gmail can open the link in a fresh browser context without a PKCE verifier.
+window.rushnovaSupabase = window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'implicit'}});
 // Pricing rule: ₹1 paid = exactly 1 coin. No bonus coins.
 const PACKS=[{coins:20,price:20,label:'STARTER'},{coins:40,price:40,label:'POPULAR'},{coins:60,price:60,label:'VALUE'},{coins:100,price:100,label:'MEGA'}];
 // Configure the official receiving UPI ID here before using manual UPI. Do not put Razorpay Secret here.
@@ -973,12 +974,14 @@ $('passwordRecoveryForm').onsubmit=async function(e){
    const access_token=hash.get('access_token'),refresh_token=hash.get('refresh_token');
    if(access_token&&refresh_token){const restored=await auth.setSession({access_token,refresh_token});if(restored.error)throw restored.error;session=restored.data.session;}
   }
-  // For PKCE links, exchange the one-time code when it has not already been consumed by Supabase JS.
+  // New recovery links carry short-lived tokens in the URL hash; Supabase detects them automatically.
+  // PKCE code links from before this fix cannot be exchanged if their verifier is missing: request a fresh link.
   if(!session){
-   const code=new URLSearchParams(location.search).get('code');
-   if(code){const exchanged=await auth.exchangeCodeForSession(code);if(exchanged.error)throw exchanged.error;session=exchanged.data.session;}
+   const hasOldCode=new URLSearchParams(location.search).has('code');
+   throw new Error(hasOldCode
+    ? 'Ye purana reset link hai. Forgot password se naya Gmail link mangao aur wahi latest link kholo.'
+    : 'Recovery session nahi mila. Forgot password se naya Gmail reset link mangao aur link kholne ke baad page ko band mat karo.');
   }
-  if(!session){throw new Error('Gmail reset link se recovery session nahi mila. Isi device/browser mein latest reset link open karo; link expire ho to naya link mangao.');}
   const {error}=await auth.updateUser({password:a});if(error)throw error;
   this.reset();this.style.display='none';$('passwordRecoveryPanel').style.display='none';
   $('authForm').style.display='block';document.querySelector('#authPanel .tabs').style.display='flex';
@@ -1171,12 +1174,7 @@ window.rushnovaSupabase.auth.onAuthStateChange((event,_session)=>{if(event==='PA
    session=restored.data.session;
   }
   if(!session&&hasRecoveryCode){
-   const exchanged=await auth.exchangeCodeForSession(params.get('code'));
-   if(exchanged.error){
-    const retry=await auth.getSession();
-    if(retry.error||!retry.data.session)throw exchanged.error;
-    session=retry.data.session;
-   }else session=exchanged.data.session;
+   throw new Error('Ye purana PKCE reset link hai. Forgot password se naya Gmail reset link mangao; purane link mein browser verifier missing hai.');
   }
   if(session){
    showRushnovaPasswordRecovery();
