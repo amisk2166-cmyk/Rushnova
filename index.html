@@ -579,7 +579,7 @@ body.rn-auth-required .top .notify-bell,body.rn-auth-required .top .coin-pill,bo
 </style>
 </head><body><div class="app">
 <header class="top"><div class="brand"><div class="logo">R</div><div>RUSHNOVA<small>GAMING ARENA</small></div></div><div style="display:flex;align-items:center;gap:7px"><button class="notify-bell" type="button" onclick="openScreen('notifications');loadRushnovaNotifications()" aria-label="Notifications">🔔<span id="notificationBadge" style="display:none">0</span></button><button class="coin-pill" onclick="openScreen('wallet')">🪙 <span id="headCoins">0</span> ＋</button></div></header>
-<a class="rushnova-web-apk-download" id="rushnovaWebApkDownload" href="/Rushnova.apk" download="Rushnova.apk" aria-label="Download Rushnova Android app">⬇️ <span>INSTALL RUSHNOVA APP<small>Official Android APK · Tap to install</small></span></a>
+<a class="rushnova-web-apk-download" id="rushnovaWebApkDownload" href="https://github.com/amisk2166-cmyk/Rushnova/releases/download/V1.0.0/Rushnova.apk" download="Rushnova.apk" aria-label="Download Rushnova Android app">⬇️ <span>INSTALL RUSHNOVA APP<small>Official Android APK · Tap to install</small></span></a>
 <script>
 (function(){var el=document.getElementById('rushnovaWebApkDownload');if(!el)return;var standalone=window.matchMedia('(display-mode: standalone)').matches||window.matchMedia('(display-mode: fullscreen)').matches||window.matchMedia('(display-mode: minimal-ui)').matches||window.navigator.standalone===true;if(standalone)el.style.display='none';})();
 </script>
@@ -676,19 +676,6 @@ body.rn-auth-required .top .notify-bell,body.rn-auth-required .top .coin-pill,bo
 </div><div id="profileLogoutCard" class="card profile-logout-card" style="display:none"><div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;border-radius:12px;background:#fff0f2;color:#b51c36;display:grid;place-items:center;font-size:20px">↪</div><div style="flex:1"><b>Sign out of Rushnova</b><div class="muted">Securely log out from this account</div></div></div><button class="btn full" style="margin-top:13px;background:linear-gradient(100deg,#8e102d,#d91e47)" type="button" onclick="rushnovaLogout()">LOG OUT ↗</button></div></section>
 <section class="screen support-screen" id="support"><div class="support-page-head"><button class="link" type="button" onclick="openScreen('home')">← Back</button><span class="support-page-kicker">RUSHNOVA COMMUNITY</span><h1>Stay Connected</h1><p>Official updates, match news aur help ke liye apne favourite platform se connect karo.</p></div><a class="support-channel support-instagram" href="https://www.instagram.com/rushnova.ff/" target="_blank" rel="noopener noreferrer"><span class="support-channel-icon">◎</span><span class="support-channel-copy"><b>Instagram</b><small>@rushnova.ff · Reels & updates</small></span><span class="support-channel-arrow">↗</span></a><a class="support-channel support-whatsapp" href="https://whatsapp.com/channel/0029VbDgkUw2ER6YU8O1Hf0b" target="_blank" rel="noopener noreferrer"><span class="support-channel-icon">◉</span><span class="support-channel-copy"><b>WhatsApp Channel</b><small>Announcements & tournament updates</small></span><span class="support-channel-arrow">↗</span></a><a class="support-channel support-telegram" href="https://t.me/Rnsporttm" target="_blank" rel="noopener noreferrer"><span class="support-channel-icon">➤</span><span class="support-channel-copy"><b>Telegram</b><small>@Rnsporttm · Community updates</small></span><span class="support-channel-arrow">↗</span></a><div class="support-page-note">⚡ Follow official Rushnova channels for genuine updates. Never share your password or OTP.</div></section>
 </main><div id="paymentPreparingScreen" class="payment-preparing-screen" hidden role="status" aria-live="polite"><div class="preparing-orbit"><span class="preparing-coin">🪙</span><i></i><i></i><i></i></div><div class="preparing-kicker">RUSHNOVA SECURE CHECKOUT</div><h2>Preparing Your Payment</h2><p>Your coin package is getting ready.<br>Please wait a moment…</p><div class="preparing-progress"><span></span></div><div class="preparing-foot">🔒 Secure order creation · FamGateway</div></div><button class="rushnova-floating-support" id="rushnovaFloatingSupport" type="button" hidden onclick="openScreen('support')" aria-label="Open Rushnova Support"><span class="floating-support-icon" aria-hidden="true">🎧</span><span>Support</span></button><nav class="bottom-nav"><button class="nav active" data-screen="home"><span class="ico">⌂</span>Home</button><button class="nav" data-screen="matches"><span class="ico">♧</span>Matches</button><button class="nav" data-screen="rank"><span class="ico">♜</span>Rank</button><button class="nav" data-screen="wallet"><span class="ico">▣</span>Wallet</button><button class="nav" data-screen="profile"><span class="ico">♙</span>Profile</button></nav></div>
-
-<style id="rushnova-signup-push-prompt-style">
-#rushnovaSignupPushPrompt{position:fixed;inset:0;z-index:10050;display:none;align-items:center;justify-content:center;padding:20px;background:#071326a8;backdrop-filter:blur(5px)}
-#rushnovaSignupPushPrompt.show{display:flex}
-#rushnovaSignupPushPrompt .rn-push-prompt-card{width:min(100%,390px);padding:22px;border-radius:20px;background:#fff;color:#20304a;border:1px solid #dce8f7;box-shadow:0 20px 60px #06152b55;text-align:center}
-#rushnovaSignupPushPrompt .rn-push-prompt-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:17px;display:grid;place-items:center;background:#edf4ff;color:#1769e8;font-size:29px}
-#rushnovaSignupPushPrompt h2{margin:0 0 7px;color:#20304a;font-size:19px}
-#rushnovaSignupPushPrompt p{margin:0 0 16px;color:#71809a;font-size:12px;line-height:1.55}
-#rushnovaSignupPushPrompt .rn-push-prompt-actions{display:grid;gap:8px}
-#rushnovaSignupPushPrompt .rn-push-allow{min-height:46px;border-radius:11px;background:linear-gradient(135deg,#287cf0,#1054bd);color:#fff;font-weight:900}
-#rushnovaSignupPushPrompt .rn-push-skip{min-height:42px;border-radius:11px;background:#f3f6fb;color:#53627a;font-weight:800}
-</style>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -696,7 +683,7 @@ const RUSHNOVA_SUPABASE_URL = "https://vpgbftgphjpxwqmntmks.supabase.co";
 const RUSHNOVA_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_brj0k-Omwskv1cbXwTltvw_4kEEUPoz";
 // Paste the VAPID PUBLIC key generated for this project here. Never put the VAPID private key in this file.
 const RUSHNOVA_VAPID_PUBLIC_KEY = "BC6QUokGSHAXInVjHv2W2YZJRqeazZ8Q0L7or5dbraB4GmARujHwP9trIdCAzRL3h7cD9uc_RQ974kjv_o0IvU0";
-window.rushnovaSupabase = window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY);
+window.rushnovaSupabase = window.supabase.createClient(RUSHNOVA_SUPABASE_URL, RUSHNOVA_SUPABASE_PUBLISHABLE_KEY, {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:'pkce'}});
 // Pricing rule: ₹1 paid = exactly 1 coin. No bonus coins.
 const PACKS=[{coins:20,price:20,label:'STARTER'},{coins:40,price:40,label:'POPULAR'},{coins:60,price:60,label:'VALUE'},{coins:100,price:100,label:'MEGA'}];
 // Configure the official receiving UPI ID here before using manual UPI. Do not put Razorpay Secret here.
@@ -970,7 +957,36 @@ function setAuthMode(mode){authMode=mode;$('nameField').style.display=mode==='si
 function toggleAuthPasswordVisibility(show){const input=$('password');if(input)input.type=show?'text':'password';}
 async function sendRushnovaPasswordReset(){const email=$('email').value.trim();if(!email){showStatus('authStatus','Pehle apna registered email enter karo, phir Forgot password par tap karo.','err');$('email').focus();return;}const btn=document.querySelector('#authForm button[onclick="sendRushnovaPasswordReset()"]');if(btn)btn.disabled=true;try{const redirectTo=window.location.origin+window.location.pathname;const {error}=await window.rushnovaSupabase.auth.resetPasswordForEmail(email,{redirectTo});if(error)throw error;showStatus('authStatus','Password reset link bhej diya gaya hai. Inbox aur Spam folder check karo. Link kholkar naya password set karo.','ok');}catch(err){showStatus('authStatus','Reset link nahi bhej paye: '+(err.message||'Email check karke dobara try karo.'),'err');}finally{if(btn)btn.disabled=false;}}
 function showRushnovaPasswordRecovery(){const panel=$('passwordRecoveryPanel');if(!panel)return;panel.style.display='block';$('authForm').style.display='none';document.querySelector('#authPanel .tabs').style.display='none';showStatus('authStatus','Recovery link verified. Ab naya password set karo.','ok');$('recoveryNewPassword').focus();}
-$('passwordRecoveryForm').onsubmit=async function(e){e.preventDefault();const a=$('recoveryNewPassword').value,b=$('recoveryConfirmPassword').value;if(a.length<8){showStatus('passwordRecoveryStatus','Password kam se kam 8 characters ka hona chahiye.','err');return;}if(a!==b){showStatus('passwordRecoveryStatus','Dono password match nahi kar rahe. Confirm password dobara enter karo.','err');$('recoveryConfirmPassword').focus();return;}const btn=$('recoverySubmit');btn.disabled=true;try{const {error}=await window.rushnovaSupabase.auth.updateUser({password:a});if(error)throw error;this.reset();this.style.display='none';showStatus('passwordRecoveryStatus','Password successfully change ho gaya. Ab aap apne naye password se login kar sakte ho.','ok');$('authForm').style.display='block';document.querySelector('#authPanel .tabs').style.display='flex';$('passwordRecoveryPanel').style.display='none';showStatus('authStatus','Password updated successfully. Aapka account login hai.','ok');await loadPlayerProfile();}catch(err){showStatus('passwordRecoveryStatus','Password update nahi hua: '+(err.message||'Reset link dobara request karo.'),'err');}finally{btn.disabled=false;}};
+$('passwordRecoveryForm').onsubmit=async function(e){
+ e.preventDefault();
+ const a=$('recoveryNewPassword').value,b=$('recoveryConfirmPassword').value;
+ if(a.length<8){showStatus('passwordRecoveryStatus','Password kam se kam 8 characters ka hona chahiye.','err');return;}
+ if(a!==b){showStatus('passwordRecoveryStatus','Dono password match nahi kar rahe. Confirm password dobara enter karo.','err');$('recoveryConfirmPassword').focus();return;}
+ const btn=$('recoverySubmit');btn.disabled=true;
+ try{
+  const auth=window.rushnovaSupabase.auth;
+  let {data:{session},error:sessionError}=await auth.getSession();
+  if(sessionError)throw sessionError;
+  // Some Gmail apps open the recovery link in a fresh browser context. Restore an implicit token pair if present.
+  if(!session){
+   const hash=new URLSearchParams((location.hash||'').replace(/^#/ ,''));
+   const access_token=hash.get('access_token'),refresh_token=hash.get('refresh_token');
+   if(access_token&&refresh_token){const restored=await auth.setSession({access_token,refresh_token});if(restored.error)throw restored.error;session=restored.data.session;}
+  }
+  // For PKCE links, exchange the one-time code when it has not already been consumed by Supabase JS.
+  if(!session){
+   const code=new URLSearchParams(location.search).get('code');
+   if(code){const exchanged=await auth.exchangeCodeForSession(code);if(exchanged.error)throw exchanged.error;session=exchanged.data.session;}
+  }
+  if(!session){throw new Error('Gmail reset link se recovery session nahi mila. Isi device/browser mein latest reset link open karo; link expire ho to naya link mangao.');}
+  const {error}=await auth.updateUser({password:a});if(error)throw error;
+  this.reset();this.style.display='none';$('passwordRecoveryPanel').style.display='none';
+  $('authForm').style.display='block';document.querySelector('#authPanel .tabs').style.display='flex';
+  showStatus('authStatus','Password successfully update ho gaya. Ab naye password se login kar sakte ho.','ok');
+  await auth.signOut();await loadPlayerProfile();setAuthMode('login');
+ }catch(err){showStatus('passwordRecoveryStatus','Password update nahi hua: '+(err.message||'Latest Gmail reset link dobara request karo.'),'err');}
+ finally{btn.disabled=false;}
+};
 async function loadPlayerProfile(){
  const sb=window.rushnovaSupabase;
  const {data:{user},error:authError}=await sb.auth.getUser();
@@ -1083,18 +1099,15 @@ $('authForm').onsubmit=async e=>{
      if(data.session){
        showStatus('authStatus','Account created and signed in.','ok');
        await loadPlayerProfile();
-       showRushnovaSignupPushPrompt();
+       setTimeout(showRushnovaSignupPushPrompt,700);
      }else{
-       try{sessionStorage.setItem('rushnova_pending_signup_push_prompt','1');}catch(e){}
-       showStatus('authStatus','Account created. Email confirmation link check karo. Confirmation ke baad isi browser mein pehli baar login karoge to optional notification permission prompt dikhega.','info');
+       showStatus('authStatus','Signup started. Check your email for the confirmation link, then log in. If profile setup has not been run, run the included SQL first.','info');
      }
    }else{
      const {error}=await sb.auth.signInWithPassword({email,password});
      if(error) throw error;
      showStatus('authStatus','Login successful.','ok');
      await loadPlayerProfile();
-     let showSignupPush=false;try{showSignupPush=sessionStorage.getItem('rushnova_pending_signup_push_prompt')==='1';if(showSignupPush)sessionStorage.removeItem('rushnova_pending_signup_push_prompt');}catch(e){}
-     if(showSignupPush)showRushnovaSignupPushPrompt();
    }
  }catch(err){showStatus('authStatus',err.message||'Authentication failed.','err')}
  finally{$('authSubmit').disabled=false}
@@ -1817,7 +1830,7 @@ $('changePasswordForm').onsubmit=async e=>{e.preventDefault();const a=$('newPass
  }
 })();
 
-// Personal notification inbox. Requires Rushnova_Match_Notifications_Setup.sql.
+// Personal notification inbox. Requires Rushnova_Push_Setup.sql.
 let rushnovaNotificationChannel=null;
 
 // Real Web Push opt-in. Requires /sw.js, the SQL setup, and the Edge Function in the setup package.
@@ -1828,37 +1841,25 @@ function rushnovaUrlBase64ToUint8Array(base64String){
  return Uint8Array.from([...raw].map(ch=>ch.charCodeAt(0)));
 }
 async function rushnovaRegisterServiceWorker(){
- if(!('serviceWorker' in navigator)) throw new Error('Is browser mein background notifications support nahi hain.');
+ if(!('serviceWorker' in navigator)) throw new Error('Is browser mein Service Worker support nahi hai. Chrome/Android browser use karo.');
  if(!window.isSecureContext) throw new Error('Push notifications ke liye HTTPS website zaroori hai.');
- rushnovaServiceWorkerRegistration=await navigator.serviceWorker.register('/sw.js',{scope:'/'});
- await navigator.serviceWorker.ready;
- return rushnovaServiceWorkerRegistration;
+ const reg=await navigator.serviceWorker.register('/sw.js',{scope:'/',updateViaCache:'none'});
+ const ready=await navigator.serviceWorker.ready;
+ const active=ready.active||reg.active;
+ if(!active)throw new Error('/sw.js register hua, lekin active nahi hua. Vercel par root /sw.js file check karo.');
+ rushnovaServiceWorkerRegistration=ready;
+ return ready;
 }
-
-// Ask new members once after signup. Notification permission is requested only
-// after the member taps Allow, so declining never blocks account creation.
 function showRushnovaSignupPushPrompt(){
  if(!currentUser||!('Notification' in window)||!('PushManager' in window))return;
  if(Notification.permission==='granted'||Notification.permission==='denied')return;
- let prompt=document.getElementById('rushnovaSignupPushPrompt');
+ let prompt=$('rushnovaSignupPushPrompt');
  if(!prompt){
-  prompt=document.createElement('div');
-  prompt.id='rushnovaSignupPushPrompt';
+  prompt=document.createElement('div');prompt.id='rushnovaSignupPushPrompt';prompt.className='rn-push-prompt';
   prompt.innerHTML='<div class="rn-push-prompt-card" role="dialog" aria-modal="true" aria-labelledby="rnPushPromptTitle"><div class="rn-push-prompt-icon">🔔</div><h2 id="rnPushPromptTitle">Enable Rushnova Notifications?</h2><p>Room ID, match updates aur important account alerts paane ke liye notifications allow kar sakte ho. Ye optional hai — Not now chunne par bhi account normal chalega.</p><div class="rn-push-prompt-actions"><button type="button" class="rn-push-allow" id="rnPushPromptAllow">ALLOW NOTIFICATIONS</button><button type="button" class="rn-push-skip" id="rnPushPromptSkip">NOT NOW</button></div><div id="rnPushPromptStatus" class="status" role="status" aria-live="polite"></div></div>';
   document.body.appendChild(prompt);
-  document.getElementById('rnPushPromptAllow').addEventListener('click',async()=>{
-   const b=document.getElementById('rnPushPromptAllow');b.disabled=true;
-   try{
-    await enableRushnovaPush();
-    if(Notification.permission==='granted'){
-     prompt.classList.remove('show');
-     const ps=document.getElementById('rnPushPromptStatus');if(ps)ps.textContent='';
-    }else{
-     const ps=document.getElementById('rnPushPromptStatus');if(ps){ps.textContent='Permission allow nahi hui. Aap baad mein Notifications page se try kar sakte ho.';ps.className='status show info';}
-    }
-   }finally{b.disabled=false;}
-  });
-  document.getElementById('rnPushPromptSkip').addEventListener('click',()=>prompt.classList.remove('show'));
+  $('rnPushPromptAllow').addEventListener('click',async()=>{const b=$('rnPushPromptAllow');b.disabled=true;try{await enableRushnovaPush();if(Notification.permission==='granted'&&$('rnPushPromptStatus')?.dataset.saved==='1'){prompt.classList.remove('show');}}finally{b.disabled=false;}});
+  $('rnPushPromptSkip').addEventListener('click',()=>prompt.classList.remove('show'));
  }
  prompt.classList.add('show');
 }
@@ -1866,26 +1867,35 @@ function showRushnovaSignupPushPrompt(){
 async function enableRushnovaPush(){
  const btn=$('rushnovaEnablePushBtn');
  const status=$('rushnovaPushStatus');
- const say=(msg,type='info')=>{if(status){status.textContent=msg;status.className='status '+type;}};
- if(!currentUser){say('Pehle Rushnova account mein login karo.','err');return;}
- if(!window.rushnovaSupabase){say('Supabase connection ready nahi hai.','err');return;}
- if(!RUSHNOVA_VAPID_PUBLIC_KEY){
-  say('Setup pending: VAPID PUBLIC key missing hai.','err');return;
- }
- if(!('PushManager' in window)||!('Notification' in window)){say('Is browser mein push notification support nahi hai. Chrome/Android use karo.','err');return;}
+ const say=(msg,type='info')=>{[status,$('rnPushPromptStatus')].filter(Boolean).forEach(target=>{target.textContent=msg;target.className='status show '+type;if(type==='ok')target.dataset.saved='1';});};
  if(btn)btn.disabled=true;
  try{
-  const permission=await Notification.requestPermission();
-  if(permission!=='granted')throw new Error('Notification permission allow nahi hui. Browser settings mein Rushnova notifications allow karo.');
+  if(!window.rushnovaSupabase)throw new Error('Supabase connection ready nahi hai. Page refresh karo.');
+  const {data:{user},error:authError}=await window.rushnovaSupabase.auth.getUser();
+  if(authError)throw authError;
+  currentUser=user||null;
+  if(!currentUser)throw new Error('Pehle Rushnova account mein login karo, phir notifications enable karo.');
+  if(!RUSHNOVA_VAPID_PUBLIC_KEY)throw new Error('VAPID public key missing hai.');
+  if(!('PushManager' in window)||!('Notification' in window))throw new Error('Is browser/app mein Web Push support nahi hai. Updated Android Chrome ya installed Rushnova app use karo.');
+  if(Notification.permission==='denied')throw new Error('Notifications pehle block ho chuki hain. Android Settings → Apps → Rushnova/Chrome → Notifications → Allow karo, phir retry karo.');
+  let permission=Notification.permission;
+  if(permission!=='granted')permission=await Notification.requestPermission();
+  if(permission!=='granted')throw new Error('Notification permission allow nahi hui. Android/browser settings mein Rushnova notifications Allow karo.');
   const reg=await rushnovaRegisterServiceWorker();
   let sub=await reg.pushManager.getSubscription();
   if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:rushnovaUrlBase64ToUint8Array(RUSHNOVA_VAPID_PUBLIC_KEY)});
+  const subscription=sub.toJSON();
+  if(!subscription.endpoint||!subscription.keys?.p256dh||!subscription.keys?.auth)throw new Error('Browser ne incomplete push subscription diya. Browser update karke retry karo.');
   const {error}=await window.rushnovaSupabase.from('rushnova_push_subscriptions').upsert({
-   user_id:currentUser.id, endpoint:sub.endpoint, subscription:sub.toJSON(), updated_at:new Date().toISOString()
+   user_id:currentUser.id,endpoint:subscription.endpoint,subscription,updated_at:new Date().toISOString()
   },{onConflict:'endpoint'});
-  if(error)throw error;
-  say('Phone notifications enabled! Ab test notification bhejkar check kar sakte ho.','ok');
-  const signupPrompt=$('rushnovaSignupPushPrompt');if(signupPrompt)signupPrompt.classList.remove('show');
+  if(error){
+   if(error.code==='42P01'||error.code==='PGRST205')throw new Error('Supabase mein rushnova_push_subscriptions table nahi mila. Rushnova_Push_Setup.sql run karo.');
+   if(error.code==='42501'||error.code==='PGRST301')throw new Error('Push subscription save permission denied. Supabase Push Setup SQL ki RLS policies check/run karo.');
+   throw new Error('Subscription Supabase mein save nahi hui: '+error.message);
+  }
+  say('Phone notifications enabled! Device subscription Supabase mein save ho gayi.','ok');
+  if(btn)btn.textContent='PHONE NOTIFICATIONS ENABLED';
  }catch(e){say(e.message||'Push setup complete nahi hua.','err');}
  finally{if(btn)btn.disabled=false;}
 }
@@ -1895,11 +1905,12 @@ async function refreshRushnovaPushButton(){
  if(!currentUser){btn.disabled=true;btn.textContent='LOGIN TO ENABLE NOTIFICATIONS';return;}
  btn.disabled=false;
  try{
-  if(!('serviceWorker' in navigator)||!('PushManager' in window)){btn.textContent='PUSH NOT SUPPORTED IN THIS BROWSER';btn.disabled=true;return;}
+  if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window)){btn.textContent='PUSH NOT SUPPORTED IN THIS BROWSER';btn.disabled=true;return;}
+  if(Notification.permission==='denied'){btn.textContent='ALLOW NOTIFICATIONS IN DEVICE SETTINGS';return;}
   const reg=await rushnovaRegisterServiceWorker();
   const sub=await reg.pushManager.getSubscription();
-  btn.textContent=sub?'PHONE NOTIFICATIONS ENABLED':'ENABLE PHONE NOTIFICATIONS';
- }catch(e){btn.textContent='ENABLE PHONE NOTIFICATIONS';}
+  btn.textContent=sub&&Notification.permission==='granted'?'PHONE NOTIFICATIONS ENABLED':'ENABLE PHONE NOTIFICATIONS';
+ }catch(e){btn.textContent='ENABLE PHONE NOTIFICATIONS';const status=$('rushnovaPushStatus');if(status){status.textContent=e.message||'Service worker setup pending.';status.className='status err';}}
 }
 
 async function loadRushnovaNotifications(){
@@ -1912,7 +1923,7 @@ async function loadRushnovaNotifications(){
  if(!data?.length){box.innerHTML='<div class="empty">Abhi koi notification nahi hai. 🔔</div>';return;}
  const icons={room:'🔑',match:'🎮',result:'🏆',wallet:'💰',withdrawal:'💸',system:'📢'};
  box.innerHTML=data.map(n=>`<div class="notification-item ${n.is_read?'':'unread'}"><div class="notification-icon">${icons[n.notification_type]||'🔔'}</div><div class="notification-copy"><b>${safe(n.title||'Rushnova Update')}</b><p>${safe(n.message||'')}</p><small>${safe(String(n.created_at||'').replace('T',' ').slice(0,16))}</small>${n.action_screen?`<div style="margin-top:7px"><button class="btn outline" style="padding:6px 9px;font-size:10px" onclick="openScreen('${safe(n.action_screen)}')">OPEN</button></div>`:''}</div><div class="notification-actions"><button class="notification-delete" type="button" onclick="deleteRushnovaNotification('${safe(n.id)}')" aria-label="Delete notification">🗑 DELETE</button>${n.is_read?'':'<span class="notification-unread-dot"></span>'}</div></div>`).join('');
- }catch(e){box.innerHTML='<div class="empty">Notification setup pending. SQL setup file run karne ke baad refresh karo.</div>';const badge=$('notificationBadge');if(badge)badge.style.display='none';}
+ }catch(e){box.innerHTML='<div class="empty">Notification load nahi hua: '+safe(e.message||'Supabase SQL/RLS setup check karo.')+'</div>';const badge=$('notificationBadge');if(badge)badge.style.display='none';}
 }
 async function deleteRushnovaNotification(notificationId){if(!currentUser||!notificationId)return;const ok=window.confirm('Is notification ko delete karna hai?');if(!ok)return;try{const {error}=await window.rushnovaSupabase.from('rushnova_notifications').delete().eq('id',notificationId).eq('user_id',currentUser.id);if(error)throw error;await loadRushnovaNotifications();showStatus('notificationStatus','Notification delete ho gaya.','ok');}catch(e){showStatus('notificationStatus','Notification delete nahi hua. Database permission check karo.','err');}}
 async function markRushnovaNotificationsRead(){if(!currentUser){showStatus('notificationStatus','Pehle login karo.','err');return;}try{const {error}=await window.rushnovaSupabase.from('rushnova_notifications').update({is_read:true}).eq('user_id',currentUser.id).eq('is_read',false);if(error)throw error;await loadRushnovaNotifications();showStatus('notificationStatus','All notifications marked as read.','ok');}catch(e){showStatus('notificationStatus','Could not update notifications. SQL setup check karo.','err');}}
@@ -1927,6 +1938,9 @@ loadPlayerProfile().then(async()=>{if(currentUser)subscribeRushnovaNotifications
 /* Only the floating Support button is draggable; all other controls remain unchanged. */
 #rushnovaFloatingSupport{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
 #rushnovaFloatingSupport.rn-support-dragging{cursor:grabbing;animation:none!important;transition:none!important;z-index:9999!important}
+
+/* Optional push opt-in shown after a successful new account signup. */
+.rn-push-prompt{display:none;position:fixed;inset:0;z-index:10050;background:#071426bb;align-items:center;justify-content:center;padding:20px}.rn-push-prompt.show{display:flex}.rn-push-prompt-card{width:min(430px,100%);padding:22px;border-radius:20px;background:#fff;color:#20304a;border:1px solid #c9dcfb;box-shadow:0 18px 55px #07142655;text-align:center}.rn-push-prompt-icon{font-size:34px}.rn-push-prompt-card h2{font-size:19px;margin:8px 0}.rn-push-prompt-card p{font-size:13px;line-height:1.55;color:#64748b}.rn-push-prompt-actions{display:grid;gap:9px;margin-top:17px}.rn-push-allow,.rn-push-skip{min-height:46px;border-radius:11px;padding:12px;font-weight:900}.rn-push-allow{background:linear-gradient(135deg,#287cf0,#1054bd);color:#fff}.rn-push-skip{background:#edf4ff;color:#1454b4;border:1px solid #c9dcfb}.rn-push-prompt-card .status{display:none}.rn-push-prompt-card .status.show{display:block}
 </style>
 <script id="rushnova-draggable-support-v1">
 (()=>{
