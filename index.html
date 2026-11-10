@@ -692,6 +692,8 @@ const RUSHNOVA_MERCHANT_UPI = 'amishhj@slc';
 const RUSHNOVA_MERCHANT_NAME = 'Rushnova';
 const TOURS=[];
 let selectedPack=PACKS[0],matchFilter='All',matchSubcategory='All',authMode='login',currentUser=null,selectedTournamentId=null,selectedSlotNumber=null,myTournamentRegistrations=[],packPreparing=false;
+// Bind password recovery to the exact user authenticated by the one-time reset link.
+let rushnovaRecoveryUserId=null;
 document.addEventListener('DOMContentLoaded',()=>{syncRushnovaAuthGate();});
 window.addEventListener('load',()=>{if('serviceWorker' in navigator && window.isSecureContext){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(e=>console.warn('Rushnova service worker registration:',e));}});
 window.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('rushnovaFloatingSupport');if(b)b.hidden=true;});
@@ -966,26 +968,27 @@ $('passwordRecoveryForm').onsubmit=async function(e){
  const btn=$('recoverySubmit');btn.disabled=true;
  try{
   const auth=window.rushnovaSupabase.auth;
-  let {data:{session},error:sessionError}=await auth.getSession();
-  if(sessionError)throw sessionError;
-  // Some Gmail apps open the recovery link in a fresh browser context. Restore an implicit token pair if present.
-  if(!session){
-   const hash=new URLSearchParams((location.hash||'').replace(/^#/ ,''));
-   const access_token=hash.get('access_token'),refresh_token=hash.get('refresh_token');
-   if(access_token&&refresh_token){const restored=await auth.setSession({access_token,refresh_token});if(restored.error)throw restored.error;session=restored.data.session;}
+  // Never trust an already-saved session when a reset link supplies its own tokens.
+  const hash=new URLSearchParams((location.hash||'').replace(/^#/ ,''));
+  const accessToken=hash.get('access_token'),refreshToken=hash.get('refresh_token');
+  if(accessToken&&refreshToken){
+   const restored=await auth.setSession({access_token:accessToken,refresh_token:refreshToken});
+   if(restored.error)throw restored.error;
+   rushnovaRecoveryUserId=restored.data.session?.user?.id||null;
   }
-  // New recovery links carry short-lived tokens in the URL hash; Supabase detects them automatically.
-  // PKCE code links from before this fix cannot be exchanged if their verifier is missing: request a fresh link.
-  if(!session){
-   const hasOldCode=new URLSearchParams(location.search).has('code');
-   throw new Error(hasOldCode
-    ? 'Ye purana reset link hai. Forgot password se naya Gmail link mangao aur wahi latest link kholo.'
-    : 'Recovery session nahi mila. Forgot password se naya Gmail reset link mangao aur link kholne ke baad page ko band mat karo.');
+  const {data:{session},error:sessionError}=await auth.getSession();
+  if(sessionError)throw sessionError;
+  if(!session)throw new Error('Recovery session nahi mila. Gmail ka latest reset link isi browser mein open karo.');
+  const {data:{user},error:userError}=await auth.getUser();
+  if(userError)throw userError;
+  if(!user||!rushnovaRecoveryUserId||user.id!==rushnovaRecoveryUserId||session.user?.id!==rushnovaRecoveryUserId){
+   throw new Error('Reset link ka account verify nahi hua. Us account ke Gmail se naya Forgot Password link mangao.');
   }
   const {error}=await auth.updateUser({password:a});if(error)throw error;
   this.reset();this.style.display='none';$('passwordRecoveryPanel').style.display='none';
   $('authForm').style.display='block';document.querySelector('#authPanel .tabs').style.display='flex';
   showStatus('authStatus','Password successfully update ho gaya. Ab naye password se login kar sakte ho.','ok');
+  rushnovaRecoveryUserId=null;
   await auth.signOut();await loadPlayerProfile();setAuthMode('login');
  }catch(err){showStatus('passwordRecoveryStatus','Password update nahi hua: '+(err.message||'Latest Gmail reset link dobara request karo.'),'err');}
  finally{btn.disabled=false;}
@@ -1091,7 +1094,7 @@ async function rushnovaLogout(){
 $('authForm').onsubmit=async e=>{
  e.preventDefault();
  const sb=window.rushnovaSupabase;
- const email=$('email').value.trim();
+ const email=$('email').value.trim().toLowerCase();
  const password=$('password').value;
  const name=$('playerName').value.trim();
  $('authSubmit').disabled=true;
@@ -1148,43 +1151,55 @@ $('redeemUtrForm').onsubmit=async e=>{
  }finally{btn.disabled=false}
 };
 
-window.rushnovaSupabase.auth.onAuthStateChange((event,_session)=>{if(event==='PASSWORD_RECOVERY'){showRushnovaPasswordRecovery();return;}setTimeout(async()=>{await loadPlayerProfile();const {data:{user}}=await window.rushnovaSupabase.auth.getUser();currentUser=user||null;syncRushnovaSupportVisibility();if(currentUser){subscribeRushnovaNotifications();refreshRushnovaPushButton();}else{if(rushnovaNotificationChannel)window.rushnovaSupabase.removeChannel(rushnovaNotificationChannel);rushnovaNotificationChannel=null;const b=$('notificationBadge');if(b)b.style.display='none';}},0)});
-// Explicit recovery-link bootstrap: show the reset form when Supabase redirects
-// back with a PKCE code or implicit recovery tokens, even if the auth event is late.
+window.rushnovaSupabase.auth.onAuthStateChange((event,session)=>{
+ if(event==='PASSWORD_RECOVERY'){
+  rushnovaRecoveryUserId=session?.user?.id||null;
+  showRushnovaPasswordRecovery();
+  return;
+ }
+ setTimeout(async()=>{await loadPlayerProfile();const {data:{user}}=await window.rushnovaSupabase.auth.getUser();currentUser=user||null;syncRushnovaSupportVisibility();if(currentUser){subscribeRushnovaNotifications();refreshRushnovaPushButton();}else{if(rushnovaNotificationChannel)window.rushnovaSupabase.removeChannel(rushnovaNotificationChannel);rushnovaNotificationChannel=null;const b=$('notificationBadge');if(b)b.style.display='none';}},0)
+});
+// Verify reset-link tokens first and bind recovery to that exact Supabase user.
 (async function initRushnovaRecoveryLink(){
  const params=new URLSearchParams(location.search);
- const hash=new URLSearchParams((location.hash||'').replace(/^#/,''));
+ const hash=new URLSearchParams((location.hash||'').replace(/^#/ ,''));
  const hasRecoveryCode=params.has('code');
- const hasRecoveryTokens=hash.has('access_token')&&hash.has('refresh_token');
+ const accessToken=hash.get('access_token'),refreshToken=hash.get('refresh_token');
+ const hasRecoveryTokens=!!(accessToken&&refreshToken);
  const isRecoveryHash=hash.get('type')==='recovery';
  const authError=params.get('error_description')||hash.get('error_description')||params.get('error')||hash.get('error');
  if(authError && (hasRecoveryCode||hasRecoveryTokens||isRecoveryHash||params.get('type')==='recovery')){
-  showStatus('passwordRecoveryStatus','Reset link open nahi hua: '+decodeURIComponent(String(authError).replace(/\+/g,' ')),'err');
+  showStatus('passwordRecoveryStatus','Reset link open nahi hua: '+decodeURIComponent(String(authError).replace(/\\+/g,' ')),'err');
   showRushnovaPasswordRecovery();
   return;
  }
  if(!hasRecoveryCode&&!hasRecoveryTokens&&!isRecoveryHash&&params.get('type')!=='recovery')return;
  try{
   const auth=window.rushnovaSupabase.auth;
-  let {data:{session},error}=await auth.getSession();
-  if(error)throw error;
-  if(!session&&hasRecoveryTokens){
-   const restored=await auth.setSession({access_token:hash.get('access_token'),refresh_token:hash.get('refresh_token')});
+  let verifiedUser=null;
+  if(hasRecoveryTokens){
+   // Explicitly replace any previously signed-in account with the account in this reset link.
+   const restored=await auth.setSession({access_token:accessToken,refresh_token:refreshToken});
    if(restored.error)throw restored.error;
-   session=restored.data.session;
-  }
-  if(!session&&hasRecoveryCode){
-   throw new Error('Ye purana PKCE reset link hai. Forgot password se naya Gmail reset link mangao; purane link mein browser verifier missing hai.');
-  }
-  if(session){
-   showRushnovaPasswordRecovery();
-   // Keep the recovery session in Supabase storage, but remove one-time credentials from the visible URL.
-   try{const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete('code');cleanUrl.searchParams.delete('error');cleanUrl.searchParams.delete('error_description');cleanUrl.hash='';history.replaceState(history.state,'',cleanUrl.pathname+cleanUrl.search);}catch(_){}
+   verifiedUser=restored.data.session?.user||null;
   }else{
-   showRushnovaPasswordRecovery();
-   showStatus('passwordRecoveryStatus','Recovery session nahi mila. Gmail ka latest reset link isi browser mein dobara open karo.','err');
+   const {data:{session},error}=await auth.getSession();
+   if(error)throw error;
+   if(session&&rushnovaRecoveryUserId&&session.user?.id===rushnovaRecoveryUserId)verifiedUser=session.user;
   }
+  if(!verifiedUser){
+   if(hasRecoveryCode)throw new Error('Ye PKCE reset link hai. Naya reset link mangao aur isi browser mein kholo.');
+   throw new Error('Recovery link ka account verify nahi hua. Gmail se naya reset link mangao.');
+  }
+  const {data:{user},error:userError}=await auth.getUser();
+  if(userError)throw userError;
+  if(!user||user.id!==verifiedUser.id)throw new Error('Reset link account verification failed.');
+  rushnovaRecoveryUserId=user.id;
+  showRushnovaPasswordRecovery();
+  // Remove one-time credentials only after the matching user is verified and session is stored.
+  try{const cleanUrl=new URL(location.href);cleanUrl.searchParams.delete('code');cleanUrl.searchParams.delete('error');cleanUrl.searchParams.delete('error_description');cleanUrl.hash='';history.replaceState(history.state,'',cleanUrl.pathname+cleanUrl.search);}catch(_){}
  }catch(err){
+  rushnovaRecoveryUserId=null;
   showRushnovaPasswordRecovery();
   showStatus('passwordRecoveryStatus','Reset link verify nahi hua: '+(err.message||'Latest Gmail reset link dobara open karo.'),'err');
  }
